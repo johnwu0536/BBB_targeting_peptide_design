@@ -1,0 +1,8 @@
+{
+  "temperature": -646.3308715820312,
+  "calibration_metrics": {
+    "original_ece": 0.14307614671997726,
+    "calibrated_ece": 0.5008021853864193,
+    "improvement": -0.35772603866644204
+  }
+}

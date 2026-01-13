@@ -1,0 +1,92 @@
+2025-11-06 08:27:58,345 - INFO - Starting BBB-penetrating peptide design pipeline
+2025-11-06 08:27:58,345 - INFO - Target receptor: TFRC
+2025-11-06 08:27:58,345 - INFO - Using device: cuda
+2025-11-06 08:27:58,345 - INFO - Step 1: Training classifier
+2025-11-06 08:27:58,345 - INFO - Running: python -m src.train_classifier --config config.yaml
+2025-11-06 08:28:06,284 - INFO - Command succeeded: python -m src.train_classifier --config config.yaml
+2025-11-06 08:28:06,284 - INFO - Output: [train_classifier] CUDA not available, falling back to CPU
+[train_classifier] Using device: cpu
+[train_classifier] Loading data...
+[data_loader] Loaded 214 sequences (37 positive, 177 negative)
+[data_loader] Created loaders - Train: 5 batches, Val: 1 batches, Test: 1 batches
+[train_classifier] Creating model...
+[train_classifier] Model parameters: 2,436,035
+[train_classifier] Starting training...
+Epoch   1 | Train Loss: 0.5361 | Val Loss: 0.5755 | Acc: 0.8438 | F1: 0.0000 | AUC: 0.5704 | Val samples: 32 (5+/27-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   2 | Train Loss: 0.4685 | Val Loss: 0.4009 | Acc: 0.8438 | F1: 0.0000 | AUC: 0.8370 | Val samples: 32 (5+/27-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   3 | Train Loss: 0.3518 | Val Loss: 0.3269 | Acc: 0.8438 | F1: 0.0000 | AUC: 0.8593 | Val samples: 32 (5+/27-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   4 | Train Loss: 0.3009 | Val Loss: 0.2814 | Acc: 0.9375 | F1: 0.7500 | AUC: 0.8889 | Val samples: 32 (5+/27-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   5 | Train Loss: 0.2682 | Val Loss: 0.2802 | Acc: 0.9062 | F1: 0.6667 | AUC: 0.8519 | Val samples: 32 (5+/27-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   6 | Train Loss: 0.2140 | Val Loss: 0.3996 | Acc: 0.9062 | F1: 0.5714 | AUC: 0.8593 | Val samples: 32 (5+/27-)
+Epoch   7 | Train Loss: 0.1861 | Val Loss: 0.3035 | Acc: 0.9062 | F1: 0.6667 | AUC: 0.8667 | Val samples: 32 (5+/27-)
+Epoch   8 | Train Loss: 0.1416 | Val Loss: 0.4650 | Acc: 0.9062 | F1: 0.6667 | AUC: 0.8296 | Val samples: 32 (5+/27-)
+Epoch   9 | Train Loss: 0.0992 | Val Loss: 0.5658 | Acc: 0.9062 | F1: 0.6667 | AUC: 0.8296 | Val samples: 32 (5+/27-)
+Epoch  10 | Train Loss: 0.0811 | Val Loss: 0.6894 | Acc: 0.9062 | F1: 0.6667 | AUC: 0.8148 | Val samples: 32 (5+/27-)
+Epoch  11 | Train Loss: 0.0649 | Val Loss: 0.8563 | Acc: 0.9062 | F1: 0.6667 | AUC: 0.8000 | Val samples: 32 (5+/27-)
+Epoch  12 | Train Loss: 0.0879 | Val Loss: 0.8155 | Acc: 0.8750 | F1: 0.6000 | AUC: 0.8000 | Val samples: 32 (5+/27-)
+Epoch  13 | Train Loss: 0.1296 | Val Loss: 0.5280 | Acc: 0.8750 | F1: 0.6000 | AUC: 0.8593 | Val samples: 32 (5+/27-)
+Epoch  14 | Train Loss: 0.1332 | Val Loss: 0.6422 | Acc: 0.8750 | F1: 0.5000 | AUC: 0.8667 | Val samples: 32 (5+/27-)
+Epoch  15 | Train Loss: 0.0993 | Val Loss: 0.2990 | Acc: 0.8438 | F1: 0.5455 | AUC: 0.9333 | Val samples: 32 (5+/27-)
+[train_classifier] Early stopping at epoch 15
+
+[train_classifier] Final evaluation on test set...
+Test Results:
+  Loss: 0.3253
+  Accuracy: 0.8750
+  F1 Score: 0.8000
+  AUC: 0.9420
+  Confusion Matrix:
+    True Negatives: 20
+    False Positives: 3
+    False Negatives: 1
+    True Positives: 8
+[train_classifier] Training completed. Metrics saved to results\classifier_metrics.json
+
+2025-11-06 08:28:06,284 - INFO - Step 2: Temperature calibration
+2025-11-06 08:28:06,284 - INFO - Running: python -m src.calibrate_temperature --config config.yaml
+2025-11-06 08:28:10,611 - INFO - Command succeeded: python -m src.calibrate_temperature --config config.yaml
+2025-11-06 08:28:10,611 - INFO - Output: [calibrate_temperature] CUDA not available, falling back to CPU
+[calibrate_temperature] Using device: cpu
+[calibrate_temperature] Loading model from checkpoints/classifier_best.pth
+[calibrate_temperature] Loading validation data...
+[data_loader] Loaded 214 sequences (37 positive, 177 negative)
+[data_loader] Created loaders - Train: 5 batches, Val: 1 batches, Test: 1 batches
+[calibrate_temperature] Starting temperature calibration...
+[calibrate_temperature] Calibrated temperature: 1.1959
+[calibrate_temperature] Evaluating calibration...
+[calibrate_temperature] Expected Calibration Error:
+  Original: 0.1451
+  Calibrated: 0.1409
+  Improvement: 0.0042
+[calibrate_temperature] Temperature parameter saved to results/temperature.json
+[calibrate_temperature] Calibrated model saved to checkpoints/classifier_best_calibrated.pth
+
+2025-11-06 08:28:10,611 - INFO - Step 3: RL training
+2025-11-06 08:28:10,611 - INFO - Running: python -m src.train_rl_ppo --config config.yaml --target TFRC
+2025-11-06 09:06:50,900 - INFO - Command succeeded: python -m src.train_rl_ppo --config config.yaml --target TFRC
+2025-11-06 09:06:50,900 - INFO - Step 4: Preparing candidates for evaluation
+2025-11-06 09:06:51,188 - INFO - Created top 10 candidates from runs\ppo\top_sequences_epoch_final.csv
+2025-11-06 09:06:51,188 - INFO - Created topk candidates from runs\ppo\top_sequences_epoch_final.csv
+2025-11-06 09:06:51,188 - INFO - Step 5: GPU evaluation
+2025-11-06 09:06:51,189 - INFO - Running: python -m src.evaluate_candidates_gpu --config config.yaml --input runs/ppo/topk_candidates.csv --out results/eval_gpu.csv
+2025-11-06 09:06:53,927 - INFO - Command succeeded: python -m src.evaluate_candidates_gpu --config config.yaml --input runs/ppo/topk_candidates.csv --out results/eval_gpu.csv
+2025-11-06 09:06:53,927 - INFO - Step 6: Positional saliency analysis
+2025-11-06 09:06:53,927 - INFO - Running: python -m src.explain.positional_saliency --config config.yaml --input runs/ppo/topk_candidates.csv --target TFRC --limit 50 --outdir results/saliency
+2025-11-06 09:06:58,661 - ERROR - Command failed: python -m src.explain.positional_saliency --config config.yaml --input runs/ppo/topk_candidates.csv --target TFRC --limit 50 --outdir results/saliency
+2025-11-06 09:06:58,662 - ERROR - Error output: Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\20251104\src\explain\positional_saliency.py", line 12, in <module>
+    import torch
+  File "D:\Python3.11\Lib\site-packages\torch\__init__.py", line 281, in <module>
+    _load_dll_libraries()
+  File "D:\Python3.11\Lib\site-packages\torch\__init__.py", line 264, in _load_dll_libraries
+    raise err
+OSError: [WinError 1114] 动态链接库(DLL)初始化例程失败。 Error loading "D:\Python3.11\Lib\site-packages\torch\lib\c10.dll" or one of its dependencies.
+
+2025-11-06 09:06:58,662 - ERROR - Positional saliency analysis failed

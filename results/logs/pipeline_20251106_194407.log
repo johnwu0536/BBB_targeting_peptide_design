@@ -1,0 +1,41 @@
+2025-11-06 19:44:07,835 - INFO - Starting BBB-penetrating peptide design pipeline
+2025-11-06 19:44:07,835 - INFO - Target receptor: TFRC
+2025-11-06 19:44:07,835 - INFO - Using device: cuda
+2025-11-06 19:44:07,835 - INFO - Step 1: Training classifier
+2025-11-06 19:44:07,835 - INFO - Running: python -m src.train_classifier --config config.yaml
+2025-11-06 19:44:12,007 - ERROR - Command failed: python -m src.train_classifier --config config.yaml
+2025-11-06 19:44:12,008 - ERROR - Error output: 
+Epochs:   0%|          | 0/100 [00:00<?, ?epoch/s]
+
+Training:   0%|          | 0/5 [00:00<?, ?it/s][A
+
+                                               [A
+Epochs:   0%|          | 0/100 [00:00<?, ?epoch/s]
+Traceback (most recent call last):
+  File "/home/wuhaigang/anaconda3/envs/openmm-env/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/wuhaigang/anaconda3/envs/openmm-env/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/wuhaigang/WHG/NiuNiu1/src/train_classifier.py", line 287, in <module>
+    sys.exit(main())
+  File "/home/wuhaigang/WHG/NiuNiu1/src/train_classifier.py", line 203, in main
+    train_loss = train_epoch(model, train_loader, criterion, optimizer, device)
+  File "/home/wuhaigang/WHG/NiuNiu1/src/train_classifier.py", line 52, in train_epoch
+    logits = model(sequences)
+  File "/home/wuhaigang/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/wuhaigang/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/wuhaigang/WHG/NiuNiu1/src/models/classifier.py", line 104, in forward
+    embedded = self.embedding(x)  # (batch_size, seq_len, embedding_dim)
+  File "/home/wuhaigang/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/wuhaigang/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/wuhaigang/.local/lib/python3.8/site-packages/torch/nn/modules/sparse.py", line 164, in forward
+    return F.embedding(
+  File "/home/wuhaigang/.local/lib/python3.8/site-packages/torch/nn/functional.py", line 2267, in embedding
+    return torch.embedding(weight, input, padding_idx, scale_grad_by_freq, sparse)
+RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cpu and cuda:0! (when checking argument for argument index in method wrapper_CUDA__index_select)
+
+2025-11-06 19:44:12,008 - ERROR - Classifier training failed

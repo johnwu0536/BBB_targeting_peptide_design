@@ -1,0 +1,6 @@
+receptor,uniprot,species,ecto_start,ecto_end,fasta_file,domain_annotations,comments
+TFRC,P02786,Human,121,760,P02786_ecto_121-760.fasta,,
+INSR,P06213,Human,28,944,P06213_ecto_28-944.fasta,,
+LRP1,Q07954,Human,22,4474,Q07954_ecto_22-4474.fasta,,
+ICAM1,P05362,Human,28,480,P05362_ecto_28-480.fasta,,
+NCAM1,P13591,Human,20,728,P13591_ecto_20-728.fasta,,

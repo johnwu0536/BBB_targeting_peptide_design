@@ -1,0 +1,80 @@
+2025-11-05 22:58:57,023 - INFO - Starting BBB-penetrating peptide design pipeline
+2025-11-05 22:58:57,023 - INFO - Target receptor: TFRC
+2025-11-05 22:58:57,023 - INFO - Using device: cuda
+2025-11-05 22:58:57,023 - INFO - Step 1: Training classifier
+2025-11-05 22:58:57,023 - INFO - Running: python -m src.train_classifier --config config.yaml
+2025-11-05 22:59:06,774 - INFO - Command succeeded: python -m src.train_classifier --config config.yaml
+2025-11-05 22:59:06,774 - INFO - Output: [train_classifier] CUDA not available, falling back to CPU
+[train_classifier] Using device: cpu
+[train_classifier] Loading data...
+[data_loader] Loaded 214 sequences (37 positive, 177 negative)
+[data_loader] Created loaders - Train: 5 batches, Val: 1 batches, Test: 1 batches
+[train_classifier] Creating model...
+[train_classifier] Model parameters: 2,436,035
+[train_classifier] Starting training...
+Epoch   1 | Train Loss: 0.5750 | Val Loss: 0.5993 | Acc: 0.7812 | F1: 0.0000 | AUC: 0.6286 | Val samples: 32 (7+/25-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   2 | Train Loss: 0.4095 | Val Loss: 0.4624 | Acc: 0.7812 | F1: 0.0000 | AUC: 0.7029 | Val samples: 32 (7+/25-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   3 | Train Loss: 0.3340 | Val Loss: 0.5195 | Acc: 0.7812 | F1: 0.0000 | AUC: 0.7886 | Val samples: 32 (7+/25-)
+Epoch   4 | Train Loss: 0.2514 | Val Loss: 0.2743 | Acc: 0.8438 | F1: 0.4444 | AUC: 0.9714 | Val samples: 32 (7+/25-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   5 | Train Loss: 0.2056 | Val Loss: 0.2289 | Acc: 0.9062 | F1: 0.7273 | AUC: 0.9829 | Val samples: 32 (7+/25-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   6 | Train Loss: 0.1789 | Val Loss: 0.2555 | Acc: 0.8750 | F1: 0.6000 | AUC: 0.9714 | Val samples: 32 (7+/25-)
+Epoch   7 | Train Loss: 0.1298 | Val Loss: 0.3273 | Acc: 0.8750 | F1: 0.6000 | AUC: 0.9543 | Val samples: 32 (7+/25-)
+Epoch   8 | Train Loss: 0.1346 | Val Loss: 0.3296 | Acc: 0.8750 | F1: 0.6000 | AUC: 0.9657 | Val samples: 32 (7+/25-)
+Epoch   9 | Train Loss: 0.1111 | Val Loss: 0.3771 | Acc: 0.9062 | F1: 0.7273 | AUC: 0.9486 | Val samples: 32 (7+/25-)
+Epoch  10 | Train Loss: 0.0840 | Val Loss: 0.3380 | Acc: 0.8438 | F1: 0.6154 | AUC: 0.9143 | Val samples: 32 (7+/25-)
+Epoch  11 | Train Loss: 0.0449 | Val Loss: 1.2363 | Acc: 0.8125 | F1: 0.2500 | AUC: 0.9086 | Val samples: 32 (7+/25-)
+Epoch  12 | Train Loss: 0.0922 | Val Loss: 0.1895 | Acc: 0.9062 | F1: 0.8000 | AUC: 0.9714 | Val samples: 32 (7+/25-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch  13 | Train Loss: 0.0786 | Val Loss: 0.3602 | Acc: 0.9062 | F1: 0.7273 | AUC: 0.9543 | Val samples: 32 (7+/25-)
+Epoch  14 | Train Loss: 0.0282 | Val Loss: 0.5271 | Acc: 0.9062 | F1: 0.7273 | AUC: 0.8857 | Val samples: 32 (7+/25-)
+Epoch  15 | Train Loss: 0.0376 | Val Loss: 0.9379 | Acc: 0.8438 | F1: 0.4444 | AUC: 0.8743 | Val samples: 32 (7+/25-)
+Epoch  16 | Train Loss: 0.0383 | Val Loss: 0.5771 | Acc: 0.8750 | F1: 0.7143 | AUC: 0.9200 | Val samples: 32 (7+/25-)
+Epoch  17 | Train Loss: 0.0581 | Val Loss: 1.1960 | Acc: 0.8750 | F1: 0.6000 | AUC: 0.9086 | Val samples: 32 (7+/25-)
+Epoch  18 | Train Loss: 0.0665 | Val Loss: 0.9042 | Acc: 0.8438 | F1: 0.4444 | AUC: 0.9029 | Val samples: 32 (7+/25-)
+Epoch  19 | Train Loss: 0.0734 | Val Loss: 0.5911 | Acc: 0.8750 | F1: 0.7500 | AUC: 0.8857 | Val samples: 32 (7+/25-)
+Epoch  20 | Train Loss: 0.0535 | Val Loss: 0.4786 | Acc: 0.7812 | F1: 0.3636 | AUC: 0.8914 | Val samples: 32 (7+/25-)
+Epoch  21 | Train Loss: 0.0251 | Val Loss: 0.6739 | Acc: 0.8438 | F1: 0.4444 | AUC: 0.9029 | Val samples: 32 (7+/25-)
+Epoch  22 | Train Loss: 0.0149 | Val Loss: 0.6014 | Acc: 0.8750 | F1: 0.6000 | AUC: 0.9200 | Val samples: 32 (7+/25-)
+[train_classifier] Early stopping at epoch 22
+
+[train_classifier] Final evaluation on test set...
+Test Results:
+  Loss: 1.0601
+  Accuracy: 0.8438
+  F1 Score: 0.5455
+  AUC: 0.7200
+  Confusion Matrix:
+    True Negatives: 24
+    False Positives: 1
+    False Negatives: 4
+    True Positives: 3
+[train_classifier] Training completed. Metrics saved to results\classifier_metrics.json
+
+2025-11-05 22:59:06,774 - INFO - Step 2: Temperature calibration
+2025-11-05 22:59:06,774 - INFO - Running: python -m src.calibrate_temperature --config config.yaml
+2025-11-05 22:59:11,956 - INFO - Command succeeded: python -m src.calibrate_temperature --config config.yaml
+2025-11-05 22:59:11,956 - INFO - Output: [calibrate_temperature] CUDA not available, falling back to CPU
+[calibrate_temperature] Using device: cpu
+[calibrate_temperature] Loading model from checkpoints/classifier_best.pth
+[calibrate_temperature] Loading validation data...
+[data_loader] Loaded 214 sequences (37 positive, 177 negative)
+[data_loader] Created loaders - Train: 5 batches, Val: 1 batches, Test: 1 batches
+[calibrate_temperature] Starting temperature calibration...
+[calibrate_temperature] Calibrated temperature: 0.0779
+[calibrate_temperature] Evaluating calibration...
+[calibrate_temperature] Expected Calibration Error:
+  Original: 0.0212
+  Calibrated: 0.0000
+  Improvement: 0.0212
+[calibrate_temperature] Temperature parameter saved to results/temperature.json
+[calibrate_temperature] Calibrated model saved to checkpoints/classifier_best_calibrated.pth
+
+2025-11-05 22:59:11,956 - INFO - Step 3: RL training
+2025-11-05 22:59:11,956 - INFO - Running: python -m src.train_rl_ppo --config config.yaml --target TFRC
+2025-11-05 23:37:28,535 - INFO - Command succeeded: python -m src.train_rl_ppo --config config.yaml --target TFRC
+2025-11-05 23:37:28,535 - INFO - Step 4: Preparing candidates for evaluation
+2025-11-05 23:37:28,535 - ERROR - No candidate files found from RL training

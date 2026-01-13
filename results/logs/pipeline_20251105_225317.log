@@ -1,0 +1,79 @@
+2025-11-05 22:53:17,703 - INFO - Starting BBB-penetrating peptide design pipeline
+2025-11-05 22:53:17,703 - INFO - Target receptor: TFRC
+2025-11-05 22:53:17,703 - INFO - Using device: cuda
+2025-11-05 22:53:17,703 - INFO - Step 1: Training classifier
+2025-11-05 22:53:17,703 - INFO - Running: python -m src.train_classifier --config config.yaml
+2025-11-05 22:53:26,348 - INFO - Command succeeded: python -m src.train_classifier --config config.yaml
+2025-11-05 22:53:26,350 - INFO - Output: [train_classifier] CUDA not available, falling back to CPU
+[train_classifier] Using device: cpu
+[train_classifier] Loading data...
+[data_loader] Loaded 214 sequences (37 positive, 177 negative)
+[data_loader] Created loaders - Train: 5 batches, Val: 1 batches, Test: 1 batches
+[train_classifier] Creating model...
+[train_classifier] Model parameters: 2,436,035
+[train_classifier] Starting training...
+Epoch   1 | Train Loss: 0.5774 | Val Loss: 0.4488 | Acc: 0.8438 | F1: 0.0000 | AUC: 0.5111 | Val samples: 32 (5+/27-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   2 | Train Loss: 0.4073 | Val Loss: 0.4520 | Acc: 0.8438 | F1: 0.2857 | AUC: 0.6000 | Val samples: 32 (5+/27-)
+Epoch   3 | Train Loss: 0.3063 | Val Loss: 0.5357 | Acc: 0.8125 | F1: 0.2500 | AUC: 0.6741 | Val samples: 32 (5+/27-)
+Epoch   4 | Train Loss: 0.2263 | Val Loss: 0.6230 | Acc: 0.8438 | F1: 0.4444 | AUC: 0.7185 | Val samples: 32 (5+/27-)
+Epoch   5 | Train Loss: 0.1478 | Val Loss: 0.7321 | Acc: 0.8438 | F1: 0.4444 | AUC: 0.7481 | Val samples: 32 (5+/27-)
+Epoch   6 | Train Loss: 0.1302 | Val Loss: 0.8372 | Acc: 0.8438 | F1: 0.4444 | AUC: 0.7778 | Val samples: 32 (5+/27-)
+Epoch   7 | Train Loss: 0.1036 | Val Loss: 0.8662 | Acc: 0.8438 | F1: 0.4444 | AUC: 0.7704 | Val samples: 32 (5+/27-)
+Epoch   8 | Train Loss: 0.0596 | Val Loss: 0.8780 | Acc: 0.8438 | F1: 0.4444 | AUC: 0.7630 | Val samples: 32 (5+/27-)
+Epoch   9 | Train Loss: 0.0448 | Val Loss: 0.9943 | Acc: 0.8125 | F1: 0.4000 | AUC: 0.7630 | Val samples: 32 (5+/27-)
+Epoch  10 | Train Loss: 0.0268 | Val Loss: 1.1234 | Acc: 0.8438 | F1: 0.4444 | AUC: 0.7481 | Val samples: 32 (5+/27-)
+Epoch  11 | Train Loss: 0.0156 | Val Loss: 1.2650 | Acc: 0.8438 | F1: 0.4444 | AUC: 0.7481 | Val samples: 32 (5+/27-)
+[train_classifier] Early stopping at epoch 11
+
+[train_classifier] Final evaluation on test set...
+Test Results:
+  Loss: 1.1254
+  Accuracy: 0.8125
+  F1 Score: 0.5000
+  AUC: 0.8036
+  Confusion Matrix:
+    True Negatives: 23
+    False Positives: 5
+    False Negatives: 1
+    True Positives: 3
+[train_classifier] Training completed. Metrics saved to results\classifier_metrics.json
+
+2025-11-05 22:53:26,350 - INFO - Step 2: Temperature calibration
+2025-11-05 22:53:26,350 - INFO - Running: python -m src.calibrate_temperature --config config.yaml
+2025-11-05 22:53:31,387 - INFO - Command succeeded: python -m src.calibrate_temperature --config config.yaml
+2025-11-05 22:53:31,387 - INFO - Output: [calibrate_temperature] CUDA not available, falling back to CPU
+[calibrate_temperature] Using device: cpu
+[calibrate_temperature] Loading model from checkpoints/classifier_best.pth
+[calibrate_temperature] Loading validation data...
+[data_loader] Loaded 214 sequences (37 positive, 177 negative)
+[data_loader] Created loaders - Train: 5 batches, Val: 1 batches, Test: 1 batches
+[calibrate_temperature] Starting temperature calibration...
+[calibrate_temperature] Calibrated temperature: 1.3573
+[calibrate_temperature] Evaluating calibration...
+[calibrate_temperature] Expected Calibration Error:
+  Original: 0.0759
+  Calibrated: 0.1026
+  Improvement: -0.0267
+[calibrate_temperature] Temperature parameter saved to results/temperature.json
+[calibrate_temperature] Calibrated model saved to checkpoints/classifier_best_calibrated.pth
+
+2025-11-05 22:53:31,387 - INFO - Step 3: RL training
+2025-11-05 22:53:31,387 - INFO - Running: python -m src.train_rl_ppo --config config.yaml --target TFRC
+2025-11-05 22:53:33,739 - ERROR - Command failed: python -m src.train_rl_ppo --config config.yaml --target TFRC
+2025-11-05 22:53:33,739 - ERROR - Error output: [train_rl_ppo] Using device: cpu
+[train_rl_ppo] Loading classifier...
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\20251104\src\train_rl_ppo.py", line 478, in <module>
+    main()
+  File "D:\20251104\src\train_rl_ppo.py", line 310, in main
+    classifier = load_classifier(config, device)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\20251104\src\train_rl_ppo.py", line 275, in load_classifier
+    model = PeptideClassifier(
+            ^^^^^^^^^^^^^^^^^^
+TypeError: PeptideClassifier.__init__() got an unexpected keyword argument 'vocab_size'
+
+2025-11-05 22:53:33,739 - ERROR - RL training failed

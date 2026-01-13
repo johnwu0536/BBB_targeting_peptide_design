@@ -1,0 +1,437 @@
+2025-11-16 08:56:17,934 - INFO - Starting BBB-penetrating peptide design pipeline
+2025-11-16 08:56:17,934 - INFO - Target receptor: LRP1
+2025-11-16 08:56:17,935 - INFO - Using device: cuda
+2025-11-16 08:56:17,935 - INFO - Step 1: Training classifier
+2025-11-16 08:56:17,935 - INFO - Running: python -m src.train_classifier --config config.yaml
+2025-11-16 08:56:24,570 - INFO - Command succeeded: python -m src.train_classifier --config config.yaml
+2025-11-16 08:56:24,570 - INFO - Output: [train_classifier] Using device: cuda
+[train_classifier] Loading data...
+[data_loader] Loaded 214 sequences (37 positive, 177 negative)
+[data_loader] Created loaders - Train: 5 batches, Val: 1 batches, Test: 1 batches
+[train_classifier] Creating model...
+[classifier_factory] Model config:
+  - type: basic
+  - embedding_dim: 128
+  - hidden_dim: 256
+  - vocab_size: 21
+  - dropout: 0.3
+  - num_classes: 2
+  - type: basic
+[train_classifier] Model parameters: 2,436,035
+[train_classifier] Starting training...
+Epoch   1 | Train Loss: 0.5812 | Val Loss: 0.4740 | Acc: 0.7812 | F1: 0.0000 | AUC: 0.8400 | Val samples: 32 (7+/25-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   2 | Train Loss: 0.4372 | Val Loss: 0.4075 | Acc: 0.7812 | F1: 0.0000 | AUC: 0.8914 | Val samples: 32 (7+/25-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   3 | Train Loss: 0.4055 | Val Loss: 0.3636 | Acc: 0.8438 | F1: 0.4444 | AUC: 0.8457 | Val samples: 32 (7+/25-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   4 | Train Loss: 0.3535 | Val Loss: 0.3641 | Acc: 0.8438 | F1: 0.6154 | AUC: 0.9257 | Val samples: 32 (7+/25-)
+Epoch   5 | Train Loss: 0.2898 | Val Loss: 0.2834 | Acc: 0.8438 | F1: 0.4444 | AUC: 0.9429 | Val samples: 32 (7+/25-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   6 | Train Loss: 0.2204 | Val Loss: 0.2967 | Acc: 0.8750 | F1: 0.7143 | AUC: 0.9429 | Val samples: 32 (7+/25-)
+Epoch   7 | Train Loss: 0.2045 | Val Loss: 0.3624 | Acc: 0.9062 | F1: 0.7692 | AUC: 0.9029 | Val samples: 32 (7+/25-)
+Epoch   8 | Train Loss: 0.1775 | Val Loss: 0.4583 | Acc: 0.8438 | F1: 0.6154 | AUC: 0.8571 | Val samples: 32 (7+/25-)
+Epoch   9 | Train Loss: 0.1476 | Val Loss: 0.6107 | Acc: 0.7188 | F1: 0.5263 | AUC: 0.8286 | Val samples: 32 (7+/25-)
+Epoch  10 | Train Loss: 0.0929 | Val Loss: 0.7544 | Acc: 0.8125 | F1: 0.4000 | AUC: 0.8057 | Val samples: 32 (7+/25-)
+Epoch  11 | Train Loss: 0.1100 | Val Loss: 0.6530 | Acc: 0.8438 | F1: 0.7059 | AUC: 0.8286 | Val samples: 32 (7+/25-)
+Epoch  12 | Train Loss: 0.0464 | Val Loss: 0.8894 | Acc: 0.8438 | F1: 0.7059 | AUC: 0.8171 | Val samples: 32 (7+/25-)
+Epoch  13 | Train Loss: 0.0216 | Val Loss: 1.1957 | Acc: 0.8125 | F1: 0.6667 | AUC: 0.8286 | Val samples: 32 (7+/25-)
+Epoch  14 | Train Loss: 0.0474 | Val Loss: 0.8591 | Acc: 0.8750 | F1: 0.7143 | AUC: 0.8229 | Val samples: 32 (7+/25-)
+Epoch  15 | Train Loss: 0.0127 | Val Loss: 1.1127 | Acc: 0.8438 | F1: 0.6667 | AUC: 0.8000 | Val samples: 32 (7+/25-)
+[train_classifier] Early stopping at epoch 15
+
+[train_classifier] Final evaluation on test set...
+Test Results:
+  Loss: 0.5595
+  Accuracy: 0.9062
+  F1 Score: 0.5714
+  AUC: 0.8750
+  Confusion Matrix:
+    True Negatives: 27
+    False Positives: 1
+    False Negatives: 2
+    True Positives: 2
+[train_classifier] Training completed. Metrics saved to results/classifier_metrics.json
+
+2025-11-16 08:56:24,570 - INFO - Step 2: Temperature calibration
+2025-11-16 08:56:24,571 - INFO - Running: python -m src.calibrate_temperature --config config.yaml
+2025-11-16 08:56:36,455 - INFO - Command succeeded: python -m src.calibrate_temperature --config config.yaml
+2025-11-16 08:56:36,455 - INFO - Output: [calibrate_temperature] Using device: cuda
+[calibrate_temperature] Loading model from checkpoints/classifier_best.pth
+[calibrate_temperature] Loading validation data...
+[data_loader] Loaded 214 sequences (37 positive, 177 negative)
+[data_loader] Created loaders - Train: 5 batches, Val: 1 batches, Test: 1 batches
+[calibrate_temperature] Starting temperature calibration...
+[calibrate_temperature] Calibrated temperature: 1.6657
+[calibrate_temperature] Evaluating calibration...
+[calibrate_temperature] Expected Calibration Error:
+  Original: 0.1479
+  Calibrated: 0.1870
+  Improvement: -0.0391
+[calibrate_temperature] Temperature parameter saved to results/temperature.json
+[calibrate_temperature] Calibrated model saved to checkpoints/classifier_best_calibrated.pth
+
+2025-11-16 08:56:36,455 - INFO - Step 3: RL training
+2025-11-16 08:56:36,455 - INFO - Running: python -m src.train_rl_ppo --config config.yaml --target LRP1
+2025-11-16 08:56:48,934 - ERROR - Command failed: python -m src.train_rl_ppo --config config.yaml --target LRP1
+2025-11-16 08:56:48,935 - ERROR - Error output: [train_rl_ppo] Using device: cuda
+[train_rl_ppo] RL config: lr=1e-05, gamma=0.99, eps=0.2, entropy_coef=0.05078, value_coef=0.5, max_grad_norm=0.5, ppo_epochs=4, episodes/epoch=64, sample_temp=1.2, decode_temp=0.8
+[train_rl_ppo] Loading classifier...
+[train_rl_ppo] Building basic classifier with params: {'embedding_dim': 128, 'hidden_dim': 256, 'vocab_size': 21, 'dropout': 0.3, 'num_classes': 2, 'type': 'basic'}
+[train_rl_ppo] Model moved to device: cuda
+[train_rl_ppo] Loaded classifier from checkpoints/classifier_best.pth
+[train_rl_ppo] Starting RL training...
+
+PPO Training:   0%|          | 0/1000 [00:00<?, ?epoch/s]
+
+Collecting trajectories:   0%|          | 0/64 [00:00<?, ?it/s][A
+
+Collecting trajectories:   0%|          | 0/64 [00:00<?, ?it/s, episode_len=3][A
+
+Collecting trajectories:   2%|▏         | 1/64 [00:00<00:17,  3.69it/s, episode_len=3][A
+
+Collecting trajectories:   2%|▏         | 1/64 [00:00<00:17,  3.69it/s, episode_len=17][A
+
+Collecting trajectories:   2%|▏         | 1/64 [00:00<00:17,  3.69it/s, episode_len=20][A
+
+Collecting trajectories:   2%|▏         | 1/64 [00:00<00:17,  3.69it/s, episode_len=8] [A
+
+Collecting trajectories:   6%|▋         | 4/64 [00:00<00:04, 12.51it/s, episode_len=8][A
+
+Collecting trajectories:   6%|▋         | 4/64 [00:00<00:04, 12.51it/s, episode_len=8][A
+
+Collecting trajectories:   6%|▋         | 4/64 [00:00<00:04, 12.51it/s, episode_len=1][A
+
+Collecting trajectories:   6%|▋         | 4/64 [00:00<00:04, 12.51it/s, episode_len=12][A
+
+Collecting trajectories:   6%|▋         | 4/64 [00:00<00:04, 12.51it/s, episode_len=19][A
+
+Collecting trajectories:   6%|▋         | 4/64 [00:00<00:04, 12.51it/s, episode_len=9] [A
+
+Collecting trajectories:  14%|█▍        | 9/64 [00:00<00:02, 24.60it/s, episode_len=9][A
+
+Collecting trajectories:  14%|█▍        | 9/64 [00:00<00:02, 24.60it/s, episode_len=2][A
+
+Collecting trajectories:  14%|█▍        | 9/64 [00:00<00:02, 24.60it/s, episode_len=20][A
+
+Collecting trajectories:  14%|█▍        | 9/64 [00:00<00:02, 24.60it/s, episode_len=20][A
+
+Collecting trajectories:  14%|█▍        | 9/64 [00:00<00:02, 24.60it/s, episode_len=5] [A
+
+Collecting trajectories:  14%|█▍        | 9/64 [00:00<00:02, 24.60it/s, episode_len=9][A
+
+Collecting trajectories:  22%|██▏       | 14/64 [00:00<00:01, 31.69it/s, episode_len=9][A
+
+Collecting trajectories:  22%|██▏       | 14/64 [00:00<00:01, 31.69it/s, episode_len=6][A
+
+Collecting trajectories:  22%|██▏       | 14/64 [00:00<00:01, 31.69it/s, episode_len=20][A
+
+Collecting trajectories:  22%|██▏       | 14/64 [00:00<00:01, 31.69it/s, episode_len=20][A
+
+Collecting trajectories:  22%|██▏       | 14/64 [00:00<00:01, 31.69it/s, episode_len=19][A
+
+Collecting trajectories:  28%|██▊       | 18/64 [00:00<00:01, 31.47it/s, episode_len=19][A
+
+Collecting trajectories:  28%|██▊       | 18/64 [00:00<00:01, 31.47it/s, episode_len=11][A
+
+Collecting trajectories:  28%|██▊       | 18/64 [00:00<00:01, 31.47it/s, episode_len=20][A
+
+Collecting trajectories:  28%|██▊       | 18/64 [00:00<00:01, 31.47it/s, episode_len=20][A
+
+Collecting trajectories:  28%|██▊       | 18/64 [00:00<00:01, 31.47it/s, episode_len=20][A
+
+Collecting trajectories:  34%|███▍      | 22/64 [00:00<00:01, 30.59it/s, episode_len=20][A
+
+Collecting trajectories:  34%|███▍      | 22/64 [00:00<00:01, 30.59it/s, episode_len=20][A
+
+Collecting trajectories:  34%|███▍      | 22/64 [00:00<00:01, 30.59it/s, episode_len=6] [A
+
+Collecting trajectories:  34%|███▍      | 22/64 [00:00<00:01, 30.59it/s, episode_len=6][A
+
+Collecting trajectories:  34%|███▍      | 22/64 [00:00<00:01, 30.59it/s, episode_len=8][A
+
+Collecting trajectories:  34%|███▍      | 22/64 [00:00<00:01, 30.59it/s, episode_len=20][A
+
+Collecting trajectories:  42%|████▏     | 27/64 [00:00<00:01, 34.47it/s, episode_len=20][A
+
+Collecting trajectories:  42%|████▏     | 27/64 [00:00<00:01, 34.47it/s, episode_len=9] [A
+
+Collecting trajectories:  42%|████▏     | 27/64 [00:01<00:01, 34.47it/s, episode_len=12][A
+
+Collecting trajectories:  42%|████▏     | 27/64 [00:01<00:01, 34.47it/s, episode_len=20][A
+
+Collecting trajectories:  42%|████▏     | 27/64 [00:01<00:01, 34.47it/s, episode_len=20][A
+
+Collecting trajectories:  48%|████▊     | 31/64 [00:01<00:00, 34.09it/s, episode_len=20][A
+
+Collecting trajectories:  48%|████▊     | 31/64 [00:01<00:00, 34.09it/s, episode_len=20][A
+
+Collecting trajectories:  48%|████▊     | 31/64 [00:01<00:00, 34.09it/s, episode_len=20][A
+
+Collecting trajectories:  48%|████▊     | 31/64 [00:01<00:00, 34.09it/s, episode_len=13][A
+
+Collecting trajectories:  48%|████▊     | 31/64 [00:01<00:00, 34.09it/s, episode_len=20][A
+
+Collecting trajectories:  55%|█████▍    | 35/64 [00:01<00:00, 31.83it/s, episode_len=20][A
+
+Collecting trajectories:  55%|█████▍    | 35/64 [00:01<00:00, 31.83it/s, episode_len=17][A
+
+Collecting trajectories:  55%|█████▍    | 35/64 [00:01<00:00, 31.83it/s, episode_len=20][A
+
+Collecting trajectories:  55%|█████▍    | 35/64 [00:01<00:00, 31.83it/s, episode_len=20][A
+
+Collecting trajectories:  55%|█████▍    | 35/64 [00:01<00:00, 31.83it/s, episode_len=20][A
+
+Collecting trajectories:  61%|██████    | 39/64 [00:01<00:00, 30.03it/s, episode_len=20][A
+
+Collecting trajectories:  61%|██████    | 39/64 [00:01<00:00, 30.03it/s, episode_len=14][A
+
+Collecting trajectories:  61%|██████    | 39/64 [00:01<00:00, 30.03it/s, episode_len=20][A
+
+Collecting trajectories:  61%|██████    | 39/64 [00:01<00:00, 30.03it/s, episode_len=15][A
+
+Collecting trajectories:  61%|██████    | 39/64 [00:01<00:00, 30.03it/s, episode_len=1] [A
+
+Collecting trajectories:  61%|██████    | 39/64 [00:01<00:00, 30.03it/s, episode_len=20][A
+
+Collecting trajectories:  69%|██████▉   | 44/64 [00:01<00:00, 31.95it/s, episode_len=20][A
+
+Collecting trajectories:  69%|██████▉   | 44/64 [00:01<00:00, 31.95it/s, episode_len=5] [A
+
+Collecting trajectories:  69%|██████▉   | 44/64 [00:01<00:00, 31.95it/s, episode_len=20][A
+
+Collecting trajectories:  69%|██████▉   | 44/64 [00:01<00:00, 31.95it/s, episode_len=9] [A
+
+Collecting trajectories:  69%|██████▉   | 44/64 [00:01<00:00, 31.95it/s, episode_len=1][A
+
+Collecting trajectories:  69%|██████▉   | 44/64 [00:01<00:00, 31.95it/s, episode_len=3][A
+
+Collecting trajectories:  69%|██████▉   | 44/64 [00:01<00:00, 31.95it/s, episode_len=1][A
+
+Collecting trajectories:  69%|██████▉   | 44/64 [00:01<00:00, 31.95it/s, episode_len=20][A
+
+Collecting trajectories:  80%|███████▉  | 51/64 [00:01<00:00, 39.55it/s, episode_len=20][A
+
+Collecting trajectories:  80%|███████▉  | 51/64 [00:01<00:00, 39.55it/s, episode_len=20][A
+
+Collecting trajectories:  80%|███████▉  | 51/64 [00:01<00:00, 39.55it/s, episode_len=20][A
+
+Collecting trajectories:  80%|███████▉  | 51/64 [00:01<00:00, 39.55it/s, episode_len=13][A
+
+Collecting trajectories:  80%|███████▉  | 51/64 [00:01<00:00, 39.55it/s, episode_len=2] [A
+
+Collecting trajectories:  80%|███████▉  | 51/64 [00:01<00:00, 39.55it/s, episode_len=1][A
+
+Collecting trajectories:  88%|████████▊ | 56/64 [00:01<00:00, 41.06it/s, episode_len=1][A
+
+Collecting trajectories:  88%|████████▊ | 56/64 [00:01<00:00, 41.06it/s, episode_len=3][A
+
+Collecting trajectories:  88%|████████▊ | 56/64 [00:01<00:00, 41.06it/s, episode_len=6][A
+
+Collecting trajectories:  88%|████████▊ | 56/64 [00:01<00:00, 41.06it/s, episode_len=20][A
+
+Collecting trajectories:  88%|████████▊ | 56/64 [00:01<00:00, 41.06it/s, episode_len=17][A
+
+Collecting trajectories:  88%|████████▊ | 56/64 [00:01<00:00, 41.06it/s, episode_len=20][A
+
+Collecting trajectories:  95%|█████████▌| 61/64 [00:01<00:00, 40.32it/s, episode_len=20][A
+
+Collecting trajectories:  95%|█████████▌| 61/64 [00:01<00:00, 40.32it/s, episode_len=20][A
+
+Collecting trajectories:  95%|█████████▌| 61/64 [00:01<00:00, 40.32it/s, episode_len=5] [A
+
+Collecting trajectories:  95%|█████████▌| 61/64 [00:01<00:00, 40.32it/s, episode_len=20][A
+
+                                                                                        [A
+PPO Training:   0%|          | 0/1000 [00:02<?, ?epoch/s, avg_reward=-0.0731, loss=0.0628, best=-inf][train_rl_ppo] Epoch 0: Avg Reward = -0.0731, Loss = 0.0628
+/home/wuhaigang/WHG/NiuNiu1/src/train_rl_ppo.py:381: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  df_top["epoch"] = epoch
+
+PPO Training:   0%|          | 1/1000 [00:06<1:51:18,  6.68s/epoch, avg_reward=-0.0731, loss=0.0628, best=-inf]
+
+Collecting trajectories:   0%|          | 0/64 [00:00<?, ?it/s][A
+
+Collecting trajectories:   0%|          | 0/64 [00:00<?, ?it/s, episode_len=20][A
+
+Collecting trajectories:   0%|          | 0/64 [00:00<?, ?it/s, episode_len=20][A
+
+Collecting trajectories:   0%|          | 0/64 [00:00<?, ?it/s, episode_len=20][A
+
+Collecting trajectories:   5%|▍         | 3/64 [00:00<00:02, 25.39it/s, episode_len=20][A
+
+Collecting trajectories:   5%|▍         | 3/64 [00:00<00:02, 25.39it/s, episode_len=3] [A
+
+Collecting trajectories:   5%|▍         | 3/64 [00:00<00:02, 25.39it/s, episode_len=19][A
+
+Collecting trajectories:   5%|▍         | 3/64 [00:00<00:02, 25.39it/s, episode_len=20][A
+
+Collecting trajectories:   5%|▍         | 3/64 [00:00<00:02, 25.39it/s, episode_len=20][A
+
+Collecting trajectories:  11%|█         | 7/64 [00:00<00:01, 29.72it/s, episode_len=20][A
+
+Collecting trajectories:  11%|█         | 7/64 [00:00<00:01, 29.72it/s, episode_len=16][A
+
+Collecting trajectories:  11%|█         | 7/64 [00:00<00:01, 29.72it/s, episode_len=1] [A
+
+Collecting trajectories:  11%|█         | 7/64 [00:00<00:01, 29.72it/s, episode_len=20][A
+
+Collecting trajectories:  11%|█         | 7/64 [00:00<00:01, 29.72it/s, episode_len=20][A
+
+Collecting trajectories:  17%|█▋        | 11/64 [00:00<00:01, 32.15it/s, episode_len=20][A
+
+Collecting trajectories:  17%|█▋        | 11/64 [00:00<00:01, 32.15it/s, episode_len=18][A
+
+Collecting trajectories:  17%|█▋        | 11/64 [00:00<00:01, 32.15it/s, episode_len=20][A
+
+Collecting trajectories:  17%|█▋        | 11/64 [00:00<00:01, 32.15it/s, episode_len=16][A
+
+Collecting trajectories:  17%|█▋        | 11/64 [00:00<00:01, 32.15it/s, episode_len=20][A
+
+Collecting trajectories:  23%|██▎       | 15/64 [00:00<00:01, 29.97it/s, episode_len=20][A
+
+Collecting trajectories:  23%|██▎       | 15/64 [00:00<00:01, 29.97it/s, episode_len=20][A
+
+Collecting trajectories:  23%|██▎       | 15/64 [00:00<00:01, 29.97it/s, episode_len=20][A
+
+Collecting trajectories:  23%|██▎       | 15/64 [00:00<00:01, 29.97it/s, episode_len=20][A
+
+Collecting trajectories:  23%|██▎       | 15/64 [00:00<00:01, 29.97it/s, episode_len=20][A
+
+Collecting trajectories:  30%|██▉       | 19/64 [00:00<00:01, 28.06it/s, episode_len=20][A
+
+Collecting trajectories:  30%|██▉       | 19/64 [00:00<00:01, 28.06it/s, episode_len=20][A
+
+Collecting trajectories:  30%|██▉       | 19/64 [00:00<00:01, 28.06it/s, episode_len=11][A
+
+Collecting trajectories:  30%|██▉       | 19/64 [00:00<00:01, 28.06it/s, episode_len=3] [A
+
+Collecting trajectories:  30%|██▉       | 19/64 [00:00<00:01, 28.06it/s, episode_len=12][A
+
+Collecting trajectories:  30%|██▉       | 19/64 [00:00<00:01, 28.06it/s, episode_len=20][A
+
+Collecting trajectories:  38%|███▊      | 24/64 [00:00<00:01, 31.40it/s, episode_len=20][A
+
+Collecting trajectories:  38%|███▊      | 24/64 [00:00<00:01, 31.40it/s, episode_len=2] [A
+
+Collecting trajectories:  38%|███▊      | 24/64 [00:00<00:01, 31.40it/s, episode_len=7][A
+
+Collecting trajectories:  38%|███▊      | 24/64 [00:00<00:01, 31.40it/s, episode_len=7][A
+
+Collecting trajectories:  38%|███▊      | 24/64 [00:00<00:01, 31.40it/s, episode_len=20][A
+
+Collecting trajectories:  38%|███▊      | 24/64 [00:00<00:01, 31.40it/s, episode_len=13][A
+
+Collecting trajectories:  38%|███▊      | 24/64 [00:00<00:01, 31.40it/s, episode_len=20][A
+
+Collecting trajectories:  47%|████▋     | 30/64 [00:00<00:00, 34.97it/s, episode_len=20][A
+
+Collecting trajectories:  47%|████▋     | 30/64 [00:00<00:00, 34.97it/s, episode_len=1] [A
+
+Collecting trajectories:  47%|████▋     | 30/64 [00:00<00:00, 34.97it/s, episode_len=20][A
+
+Collecting trajectories:  47%|████▋     | 30/64 [00:01<00:00, 34.97it/s, episode_len=20][A
+
+Collecting trajectories:  47%|████▋     | 30/64 [00:01<00:00, 34.97it/s, episode_len=19][A
+
+Collecting trajectories:  53%|█████▎    | 34/64 [00:01<00:00, 33.64it/s, episode_len=19][A
+
+Collecting trajectories:  53%|█████▎    | 34/64 [00:01<00:00, 33.64it/s, episode_len=3] [A
+
+Collecting trajectories:  53%|█████▎    | 34/64 [00:01<00:00, 33.64it/s, episode_len=20][A
+
+Collecting trajectories:  53%|█████▎    | 34/64 [00:01<00:00, 33.64it/s, episode_len=20][A
+
+Collecting trajectories:  53%|█████▎    | 34/64 [00:01<00:00, 33.64it/s, episode_len=20][A
+
+Collecting trajectories:  59%|█████▉    | 38/64 [00:01<00:00, 33.22it/s, episode_len=20][A
+
+Collecting trajectories:  59%|█████▉    | 38/64 [00:01<00:00, 33.22it/s, episode_len=15][A
+
+Collecting trajectories:  59%|█████▉    | 38/64 [00:01<00:00, 33.22it/s, episode_len=13][A
+
+Collecting trajectories:  59%|█████▉    | 38/64 [00:01<00:00, 33.22it/s, episode_len=19][A
+
+Collecting trajectories:  59%|█████▉    | 38/64 [00:01<00:00, 33.22it/s, episode_len=7] [A
+
+Collecting trajectories:  66%|██████▌   | 42/64 [00:01<00:00, 34.32it/s, episode_len=7][A
+
+Collecting trajectories:  66%|██████▌   | 42/64 [00:01<00:00, 34.32it/s, episode_len=20][A
+
+Collecting trajectories:  66%|██████▌   | 42/64 [00:01<00:00, 34.32it/s, episode_len=1] [A
+
+Collecting trajectories:  66%|██████▌   | 42/64 [00:01<00:00, 34.32it/s, episode_len=20][A
+
+Collecting trajectories:  66%|██████▌   | 42/64 [00:01<00:00, 34.32it/s, episode_len=20][A
+
+Collecting trajectories:  72%|███████▏  | 46/64 [00:01<00:00, 34.03it/s, episode_len=20][A
+
+Collecting trajectories:  72%|███████▏  | 46/64 [00:01<00:00, 34.03it/s, episode_len=8] [A
+
+Collecting trajectories:  72%|███████▏  | 46/64 [00:01<00:00, 34.03it/s, episode_len=9][A
+
+Collecting trajectories:  72%|███████▏  | 46/64 [00:01<00:00, 34.03it/s, episode_len=1][A
+
+Collecting trajectories:  72%|███████▏  | 46/64 [00:01<00:00, 34.03it/s, episode_len=20][A
+
+Collecting trajectories:  72%|███████▏  | 46/64 [00:01<00:00, 34.03it/s, episode_len=14][A
+
+Collecting trajectories:  80%|███████▉  | 51/64 [00:01<00:00, 37.95it/s, episode_len=14][A
+
+Collecting trajectories:  80%|███████▉  | 51/64 [00:01<00:00, 37.95it/s, episode_len=20][A
+
+Collecting trajectories:  80%|███████▉  | 51/64 [00:01<00:00, 37.95it/s, episode_len=12][A
+
+Collecting trajectories:  80%|███████▉  | 51/64 [00:01<00:00, 37.95it/s, episode_len=20][A
+
+Collecting trajectories:  80%|███████▉  | 51/64 [00:01<00:00, 37.95it/s, episode_len=3] [A
+
+Collecting trajectories:  86%|████████▌ | 55/64 [00:01<00:00, 37.49it/s, episode_len=3][A
+
+Collecting trajectories:  86%|████████▌ | 55/64 [00:01<00:00, 37.49it/s, episode_len=11][A
+
+Collecting trajectories:  86%|████████▌ | 55/64 [00:01<00:00, 37.49it/s, episode_len=14][A
+
+Collecting trajectories:  86%|████████▌ | 55/64 [00:01<00:00, 37.49it/s, episode_len=20][A
+
+Collecting trajectories:  86%|████████▌ | 55/64 [00:01<00:00, 37.49it/s, episode_len=19][A
+
+Collecting trajectories:  92%|█████████▏| 59/64 [00:01<00:00, 35.52it/s, episode_len=19][A
+
+Collecting trajectories:  92%|█████████▏| 59/64 [00:01<00:00, 35.52it/s, episode_len=6] [A
+
+Collecting trajectories:  92%|█████████▏| 59/64 [00:01<00:00, 35.52it/s, episode_len=18][A
+
+Collecting trajectories:  92%|█████████▏| 59/64 [00:01<00:00, 35.52it/s, episode_len=17][A
+
+Collecting trajectories:  92%|█████████▏| 59/64 [00:01<00:00, 35.52it/s, episode_len=20][A
+
+Collecting trajectories:  98%|█████████▊| 63/64 [00:01<00:00, 34.12it/s, episode_len=20][A
+
+Collecting trajectories:  98%|█████████▊| 63/64 [00:01<00:00, 34.12it/s, episode_len=16][A
+
+                                                                                        [A
+PPO Training:   0%|          | 1/1000 [00:08<2:24:29,  8.68s/epoch, avg_reward=-0.0731, loss=0.0628, best=-inf]
+Traceback (most recent call last):
+  File "/home/wuhaigang/anaconda3/envs/openmm-env/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/wuhaigang/anaconda3/envs/openmm-env/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/wuhaigang/WHG/NiuNiu1/src/train_rl_ppo.py", line 681, in <module>
+    main()
+  File "/home/wuhaigang/WHG/NiuNiu1/src/train_rl_ppo.py", line 563, in main
+    last_loss_info = ppo.update(states, actions, old_log_probs, returns, advantages)
+  File "/home/wuhaigang/WHG/NiuNiu1/src/train_rl_ppo.py", line 308, in update
+    loss.backward()
+  File "/home/wuhaigang/.local/lib/python3.8/site-packages/torch/_tensor.py", line 521, in backward
+    torch.autograd.backward(
+  File "/home/wuhaigang/.local/lib/python3.8/site-packages/torch/autograd/__init__.py", line 289, in backward
+    _engine_run_backward(
+  File "/home/wuhaigang/.local/lib/python3.8/site-packages/torch/autograd/graph.py", line 768, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+RuntimeError: cudnn RNN backward can only be called in training mode
+
+2025-11-16 08:56:48,935 - ERROR - RL training failed

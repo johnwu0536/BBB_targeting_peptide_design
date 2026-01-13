@@ -1,0 +1,91 @@
+2025-11-06 04:13:05,847 - INFO - Starting BBB-penetrating peptide design pipeline
+2025-11-06 04:13:05,847 - INFO - Target receptor: TFRC
+2025-11-06 04:13:05,847 - INFO - Using device: cuda
+2025-11-06 04:13:05,847 - INFO - Step 1: Training classifier
+2025-11-06 04:13:05,847 - INFO - Running: python -m src.train_classifier --config config.yaml
+2025-11-06 04:13:13,263 - INFO - Command succeeded: python -m src.train_classifier --config config.yaml
+2025-11-06 04:13:13,263 - INFO - Output: [train_classifier] CUDA not available, falling back to CPU
+[train_classifier] Using device: cpu
+[train_classifier] Loading data...
+[data_loader] Loaded 214 sequences (37 positive, 177 negative)
+[data_loader] Created loaders - Train: 5 batches, Val: 1 batches, Test: 1 batches
+[train_classifier] Creating model...
+[train_classifier] Model parameters: 2,436,035
+[train_classifier] Starting training...
+Epoch   1 | Train Loss: 0.5925 | Val Loss: 0.4452 | Acc: 0.8125 | F1: 0.0000 | AUC: 0.7885 | Val samples: 32 (6+/26-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   2 | Train Loss: 0.3970 | Val Loss: 0.3866 | Acc: 0.8750 | F1: 0.5000 | AUC: 0.8333 | Val samples: 32 (6+/26-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   3 | Train Loss: 0.3021 | Val Loss: 0.3996 | Acc: 0.8750 | F1: 0.5000 | AUC: 0.8654 | Val samples: 32 (6+/26-)
+Epoch   4 | Train Loss: 0.2617 | Val Loss: 0.3264 | Acc: 0.8125 | F1: 0.5000 | AUC: 0.8718 | Val samples: 32 (6+/26-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   5 | Train Loss: 0.2551 | Val Loss: 0.4092 | Acc: 0.9062 | F1: 0.6667 | AUC: 0.8462 | Val samples: 32 (6+/26-)
+Epoch   6 | Train Loss: 0.1794 | Val Loss: 0.3613 | Acc: 0.8438 | F1: 0.5455 | AUC: 0.8526 | Val samples: 32 (6+/26-)
+Epoch   7 | Train Loss: 0.1260 | Val Loss: 0.5449 | Acc: 0.8750 | F1: 0.6000 | AUC: 0.8205 | Val samples: 32 (6+/26-)
+Epoch   8 | Train Loss: 0.0847 | Val Loss: 0.7776 | Acc: 0.8750 | F1: 0.6000 | AUC: 0.8013 | Val samples: 32 (6+/26-)
+Epoch   9 | Train Loss: 0.0580 | Val Loss: 0.8953 | Acc: 0.8750 | F1: 0.6000 | AUC: 0.8269 | Val samples: 32 (6+/26-)
+Epoch  10 | Train Loss: 0.0286 | Val Loss: 0.9236 | Acc: 0.8750 | F1: 0.6000 | AUC: 0.8590 | Val samples: 32 (6+/26-)
+Epoch  11 | Train Loss: 0.0135 | Val Loss: 1.1321 | Acc: 0.8750 | F1: 0.6000 | AUC: 0.8718 | Val samples: 32 (6+/26-)
+Epoch  12 | Train Loss: 0.0944 | Val Loss: 1.2180 | Acc: 0.8438 | F1: 0.6154 | AUC: 0.8654 | Val samples: 32 (6+/26-)
+Epoch  13 | Train Loss: 0.1383 | Val Loss: 0.8214 | Acc: 0.9062 | F1: 0.7273 | AUC: 0.8654 | Val samples: 32 (6+/26-)
+Epoch  14 | Train Loss: 0.1229 | Val Loss: 0.6969 | Acc: 0.9062 | F1: 0.6667 | AUC: 0.8205 | Val samples: 32 (6+/26-)
+[train_classifier] Early stopping at epoch 14
+
+[train_classifier] Final evaluation on test set...
+Test Results:
+  Loss: 0.3605
+  Accuracy: 0.9062
+  F1 Score: 0.7692
+  AUC: 0.9103
+  Confusion Matrix:
+    True Negatives: 24
+    False Positives: 2
+    False Negatives: 1
+    True Positives: 5
+[train_classifier] Training completed. Metrics saved to results\classifier_metrics.json
+
+2025-11-06 04:13:13,263 - INFO - Step 2: Temperature calibration
+2025-11-06 04:13:13,263 - INFO - Running: python -m src.calibrate_temperature --config config.yaml
+2025-11-06 04:13:17,513 - INFO - Command succeeded: python -m src.calibrate_temperature --config config.yaml
+2025-11-06 04:13:17,513 - INFO - Output: [calibrate_temperature] CUDA not available, falling back to CPU
+[calibrate_temperature] Using device: cpu
+[calibrate_temperature] Loading model from checkpoints/classifier_best.pth
+[calibrate_temperature] Loading validation data...
+[data_loader] Loaded 214 sequences (37 positive, 177 negative)
+[data_loader] Created loaders - Train: 5 batches, Val: 1 batches, Test: 1 batches
+[calibrate_temperature] Starting temperature calibration...
+[calibrate_temperature] Calibrated temperature: 0.7316
+[calibrate_temperature] Evaluating calibration...
+[calibrate_temperature] Expected Calibration Error:
+  Original: 0.0583
+  Calibrated: 0.1008
+  Improvement: -0.0424
+[calibrate_temperature] Temperature parameter saved to results/temperature.json
+[calibrate_temperature] Calibrated model saved to checkpoints/classifier_best_calibrated.pth
+
+2025-11-06 04:13:17,513 - INFO - Step 3: RL training
+2025-11-06 04:13:17,513 - INFO - Running: python -m src.train_rl_ppo --config config.yaml --target TFRC
+2025-11-06 04:53:17,230 - INFO - Command succeeded: python -m src.train_rl_ppo --config config.yaml --target TFRC
+2025-11-06 04:53:17,230 - INFO - Step 4: Preparing candidates for evaluation
+2025-11-06 04:53:17,516 - INFO - Created top 10 candidates from runs\ppo\top_sequences_epoch_final.csv
+2025-11-06 04:53:17,516 - INFO - Created topk candidates from runs\ppo\top_sequences_epoch_final.csv
+2025-11-06 04:53:17,521 - INFO - Step 5: GPU evaluation
+2025-11-06 04:53:17,521 - INFO - Running: python -m src.evaluate_candidates_gpu --config config.yaml --input runs/ppo/topk_candidates.csv --out results/eval_gpu.csv
+2025-11-06 04:53:19,789 - ERROR - Command failed: python -m src.evaluate_candidates_gpu --config config.yaml --input runs/ppo/topk_candidates.csv --out results/eval_gpu.csv
+2025-11-06 04:53:19,789 - ERROR - Error output: [evaluate_candidates_gpu] Using device: cpu
+[evaluate_candidates_gpu] Loading calibrated classifier...
+[evaluate_candidates_gpu] Loading model from checkpoints/classifier_best_calibrated.pth with temperature 0.73164302110672
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\20251104\src\evaluate_candidates_gpu.py", line 200, in <module>
+    main()
+  File "D:\20251104\src\evaluate_candidates_gpu.py", line 154, in main
+    model, temperature = load_calibrated_classifier(config, device)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\20251104\src\evaluate_candidates_gpu.py", line 49, in load_calibrated_classifier
+    model = PeptideClassifier(
+            ^^^^^^^^^^^^^^^^^^
+TypeError: PeptideClassifier.__init__() got an unexpected keyword argument 'vocab_size'
+
+2025-11-06 04:53:19,789 - ERROR - GPU evaluation failed

@@ -1,0 +1,114 @@
+2025-11-16 07:53:38,134 - INFO - Starting BBB-penetrating peptide design pipeline
+2025-11-16 07:53:38,134 - INFO - Target receptor: LRP1
+2025-11-16 07:53:38,134 - INFO - Using device: cuda
+2025-11-16 07:53:38,134 - INFO - Step 1: Training classifier
+2025-11-16 07:53:38,134 - INFO - Running: python -m src.train_classifier --config config.yaml
+2025-11-16 07:53:44,821 - INFO - Command succeeded: python -m src.train_classifier --config config.yaml
+2025-11-16 07:53:44,821 - INFO - Output: [train_classifier] Using device: cuda
+[train_classifier] Loading data...
+[data_loader] Loaded 214 sequences (37 positive, 177 negative)
+[data_loader] Created loaders - Train: 5 batches, Val: 1 batches, Test: 1 batches
+[train_classifier] Creating model...
+[classifier_factory] Model config:
+  - type: basic
+  - embedding_dim: 128
+  - hidden_dim: 256
+  - vocab_size: 21
+  - dropout: 0.3
+  - num_classes: 2
+  - type: basic
+[train_classifier] Model parameters: 2,436,035
+[train_classifier] Starting training...
+Epoch   1 | Train Loss: 0.5030 | Val Loss: 0.2057 | Acc: 0.9375 | F1: 0.0000 | AUC: 0.8833 | Val samples: 32 (2+/30-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   2 | Train Loss: 0.4906 | Val Loss: 0.3345 | Acc: 0.9375 | F1: 0.0000 | AUC: 0.9667 | Val samples: 32 (2+/30-)
+Epoch   3 | Train Loss: 0.3729 | Val Loss: 0.1935 | Acc: 0.9375 | F1: 0.0000 | AUC: 1.0000 | Val samples: 32 (2+/30-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   4 | Train Loss: 0.2869 | Val Loss: 0.1488 | Acc: 0.9688 | F1: 0.6667 | AUC: 0.9833 | Val samples: 32 (2+/30-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   5 | Train Loss: 0.2290 | Val Loss: 0.1672 | Acc: 0.9688 | F1: 0.8000 | AUC: 0.9833 | Val samples: 32 (2+/30-)
+Epoch   6 | Train Loss: 0.2212 | Val Loss: 0.1187 | Acc: 0.9688 | F1: 0.6667 | AUC: 1.0000 | Val samples: 32 (2+/30-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   7 | Train Loss: 0.1748 | Val Loss: 0.1697 | Acc: 0.9688 | F1: 0.6667 | AUC: 0.8333 | Val samples: 32 (2+/30-)
+Epoch   8 | Train Loss: 0.1238 | Val Loss: 0.2562 | Acc: 0.9688 | F1: 0.6667 | AUC: 0.7333 | Val samples: 32 (2+/30-)
+Epoch   9 | Train Loss: 0.1254 | Val Loss: 0.1032 | Acc: 0.9688 | F1: 0.6667 | AUC: 0.9667 | Val samples: 32 (2+/30-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch  10 | Train Loss: 0.0610 | Val Loss: 0.1836 | Acc: 0.9375 | F1: 0.0000 | AUC: 1.0000 | Val samples: 32 (2+/30-)
+Epoch  11 | Train Loss: 0.1048 | Val Loss: 0.1335 | Acc: 0.9688 | F1: 0.8000 | AUC: 0.9667 | Val samples: 32 (2+/30-)
+Epoch  12 | Train Loss: 0.0720 | Val Loss: 0.2153 | Acc: 0.9375 | F1: 0.0000 | AUC: 0.9000 | Val samples: 32 (2+/30-)
+Epoch  13 | Train Loss: 0.0474 | Val Loss: 0.1973 | Acc: 0.9062 | F1: 0.4000 | AUC: 0.8500 | Val samples: 32 (2+/30-)
+Epoch  14 | Train Loss: 0.0435 | Val Loss: 0.4143 | Acc: 0.9375 | F1: 0.0000 | AUC: 0.6500 | Val samples: 32 (2+/30-)
+Epoch  15 | Train Loss: 0.0317 | Val Loss: 0.5217 | Acc: 0.9375 | F1: 0.0000 | AUC: 0.6167 | Val samples: 32 (2+/30-)
+Epoch  16 | Train Loss: 0.0081 | Val Loss: 0.5852 | Acc: 0.8750 | F1: 0.3333 | AUC: 0.7167 | Val samples: 32 (2+/30-)
+Epoch  17 | Train Loss: 0.0107 | Val Loss: 0.6815 | Acc: 0.9062 | F1: 0.4000 | AUC: 0.7500 | Val samples: 32 (2+/30-)
+Epoch  18 | Train Loss: 0.0724 | Val Loss: 0.5542 | Acc: 0.9375 | F1: 0.5000 | AUC: 0.7000 | Val samples: 32 (2+/30-)
+Epoch  19 | Train Loss: 0.0041 | Val Loss: 0.5706 | Acc: 0.9062 | F1: 0.4000 | AUC: 0.6833 | Val samples: 32 (2+/30-)
+[train_classifier] Early stopping at epoch 19
+
+[train_classifier] Final evaluation on test set...
+Test Results:
+  Loss: 1.5759
+  Accuracy: 0.8125
+  F1 Score: 0.6250
+  AUC: 0.8385
+  Confusion Matrix:
+    True Negatives: 21
+    False Positives: 3
+    False Negatives: 3
+    True Positives: 5
+[train_classifier] Training completed. Metrics saved to results/classifier_metrics.json
+
+2025-11-16 07:53:44,821 - INFO - Step 2: Temperature calibration
+2025-11-16 07:53:44,822 - INFO - Running: python -m src.calibrate_temperature --config config.yaml
+2025-11-16 07:53:55,099 - INFO - Command succeeded: python -m src.calibrate_temperature --config config.yaml
+2025-11-16 07:53:55,100 - INFO - Output: [calibrate_temperature] Using device: cuda
+[calibrate_temperature] Loading model from checkpoints/classifier_best.pth
+[calibrate_temperature] Loading validation data...
+[data_loader] Loaded 214 sequences (37 positive, 177 negative)
+[data_loader] Created loaders - Train: 5 batches, Val: 1 batches, Test: 1 batches
+[calibrate_temperature] Starting temperature calibration...
+[calibrate_temperature] Calibrated temperature: 0.3745
+[calibrate_temperature] Evaluating calibration...
+[calibrate_temperature] Expected Calibration Error:
+  Original: 0.0258
+  Calibrated: 0.0168
+  Improvement: 0.0090
+[calibrate_temperature] Temperature parameter saved to results/temperature.json
+[calibrate_temperature] Calibrated model saved to checkpoints/classifier_best_calibrated.pth
+
+2025-11-16 07:53:55,100 - INFO - Step 3: RL training
+2025-11-16 07:53:55,100 - INFO - Running: python -m src.train_rl_ppo --config config.yaml --target LRP1
+2025-11-16 08:27:20,284 - INFO - Command succeeded: python -m src.train_rl_ppo --config config.yaml --target LRP1
+2025-11-16 08:27:20,286 - INFO - Step 4: Preparing candidates for evaluation
+2025-11-16 08:27:20,442 - INFO - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2025-11-16 08:27:20,442 - INFO - NumExpr defaulting to 8 threads.
+2025-11-16 08:27:20,686 - INFO - Created top 10 candidates from runs/ppo/top_sequences_epoch_100.csv
+2025-11-16 08:27:20,686 - INFO - Created topk candidates from runs/ppo/top_sequences_epoch_100.csv
+2025-11-16 08:27:20,686 - INFO - Step 5: GPU evaluation
+2025-11-16 08:27:20,686 - INFO - Running: python -m src.evaluate_candidates_gpu --config config.yaml --input runs/ppo/topk_candidates.csv --out results/eval_gpu.csv
+2025-11-16 08:27:23,765 - INFO - Command succeeded: python -m src.evaluate_candidates_gpu --config config.yaml --input runs/ppo/topk_candidates.csv --out results/eval_gpu.csv
+2025-11-16 08:27:23,765 - INFO - Step 6: Positional saliency analysis
+2025-11-16 08:27:23,765 - INFO - Running: python -m src.explain.positional_saliency --config config.yaml --input runs/ppo/topk_candidates.csv --target LRP1 --limit 50 --outdir results/saliency
+2025-11-16 08:27:27,207 - INFO - Command succeeded: python -m src.explain.positional_saliency --config config.yaml --input runs/ppo/topk_candidates.csv --target LRP1 --limit 50 --outdir results/saliency
+2025-11-16 08:27:27,208 - INFO - Output: [positional_saliency] Using device: cuda
+[positional_saliency] Loading model from checkpoints/classifier_best.pth
+[positional_saliency] Using calibrated temperature: 0.3745
+[positional_saliency] Loading candidates from runs/ppo/topk_candidates.csv
+[positional_saliency] Loaded 10/10 valid sequences
+[positional_saliency] Limited to 50 sequences
+[positional_saliency] Computing positional saliency...
+[positional_saliency] Analyzing sequence 1/10: TTTTTTTTTTTTAAAAAAAA
+[positional_saliency] Analyzing sequence 2/10: TTTTTTTTTTTTAAAAAAAA
+[positional_saliency] Analyzing sequence 3/10: TTTTTTTTTTTTAAAAAAAA
+[positional_saliency] Analyzing sequence 4/10: TTTTTTTTTTTTAAAAAAAA
+[positional_saliency] Analyzing sequence 5/10: TTTTTTTTTTTTAAAAAAAA
+[positional_saliency] Analyzing sequence 6/10: TTTTTTTTTTTTAAAAAAAA
+[positional_saliency] Analyzing sequence 7/10: TTTTTTTTTTTTAAAAAAAA
+[positional_saliency] Analyzing sequence 8/10: TTTTTTTTTTTTAAAAAAAA
+[positional_saliency] Analyzing sequence 9/10: TTTTTTTTTTTTAAAAAAAA
+[positional_saliency] Analyzing sequence 10/10: TTTTTTTTTTTTAAAAAAAA
+[positional_saliency] Saving results to results/saliency/positional_saliency_LRP1.csv
+[positional_saliency] Warning: matplotlib not available, skipping plots: /lib/x86_64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.29' not found (required by /home/wuhaigang/anaconda3/envs/openmm-env/lib/python3.8/site-packages/kiwisolver/_cext.cpython-38-x86_64-linux-gnu.so)
+[positional_saliency] Analysis completed. Results saved to results/saliency/positional_saliency_LRP1.csv
+
+2025-11-16 08:27:27,208 - INFO - Pipeline completed successfully!

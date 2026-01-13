@@ -1,0 +1,104 @@
+2025-11-07 06:40:01,059 - INFO - Starting BBB-penetrating peptide design pipeline
+2025-11-07 06:40:01,060 - INFO - Target receptor: TFRC
+2025-11-07 06:40:01,060 - INFO - Using device: cuda
+2025-11-07 06:40:01,060 - INFO - Step 1: Training classifier
+2025-11-07 06:40:01,060 - INFO - Running: python -m src.train_classifier --config config.yaml
+2025-11-07 06:40:12,649 - INFO - Command succeeded: python -m src.train_classifier --config config.yaml
+2025-11-07 06:40:12,649 - INFO - Output: [train_classifier] Using device: cuda
+[train_classifier] Loading data...
+[data_loader] Loaded 214 sequences (37 positive, 177 negative)
+[data_loader] Created loaders - Train: 5 batches, Val: 1 batches, Test: 1 batches
+[train_classifier] Creating model...
+[classifier_factory] Model config:
+  - type: basic
+  - embedding_dim: 128
+  - hidden_dim: 256
+  - vocab_size: 21
+  - dropout: 0.3
+  - num_classes: 2
+  - type: basic
+[train_classifier] Model parameters: 2,436,035
+[train_classifier] Starting training...
+Epoch   1 | Train Loss: 0.5501 | Val Loss: 0.4437 | Acc: 0.8438 | F1: 0.0000 | AUC: 0.7333 | Val samples: 32 (5+/27-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   2 | Train Loss: 0.4740 | Val Loss: 0.4213 | Acc: 0.8750 | F1: 0.3333 | AUC: 0.7926 | Val samples: 32 (5+/27-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   3 | Train Loss: 0.3947 | Val Loss: 0.3295 | Acc: 0.8750 | F1: 0.3333 | AUC: 0.8370 | Val samples: 32 (5+/27-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   4 | Train Loss: 0.3160 | Val Loss: 0.3003 | Acc: 0.9062 | F1: 0.5714 | AUC: 0.8593 | Val samples: 32 (5+/27-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   5 | Train Loss: 0.2534 | Val Loss: 0.3348 | Acc: 0.8438 | F1: 0.4444 | AUC: 0.8519 | Val samples: 32 (5+/27-)
+Epoch   6 | Train Loss: 0.1782 | Val Loss: 0.3580 | Acc: 0.8750 | F1: 0.5000 | AUC: 0.8593 | Val samples: 32 (5+/27-)
+Epoch   7 | Train Loss: 0.1455 | Val Loss: 0.4527 | Acc: 0.8125 | F1: 0.2500 | AUC: 0.8000 | Val samples: 32 (5+/27-)
+Epoch   8 | Train Loss: 0.1474 | Val Loss: 0.6368 | Acc: 0.8750 | F1: 0.3333 | AUC: 0.7407 | Val samples: 32 (5+/27-)
+Epoch   9 | Train Loss: 0.1540 | Val Loss: 0.6201 | Acc: 0.8125 | F1: 0.2500 | AUC: 0.7407 | Val samples: 32 (5+/27-)
+Epoch  10 | Train Loss: 0.1321 | Val Loss: 0.5001 | Acc: 0.7500 | F1: 0.3333 | AUC: 0.7778 | Val samples: 32 (5+/27-)
+Epoch  11 | Train Loss: 0.0741 | Val Loss: 0.5297 | Acc: 0.8750 | F1: 0.3333 | AUC: 0.8444 | Val samples: 32 (5+/27-)
+Epoch  12 | Train Loss: 0.0698 | Val Loss: 0.8403 | Acc: 0.7500 | F1: 0.2000 | AUC: 0.7704 | Val samples: 32 (5+/27-)
+Epoch  13 | Train Loss: 0.0377 | Val Loss: 1.0391 | Acc: 0.8438 | F1: 0.2857 | AUC: 0.7259 | Val samples: 32 (5+/27-)
+Epoch  14 | Train Loss: 0.0411 | Val Loss: 1.1387 | Acc: 0.8750 | F1: 0.3333 | AUC: 0.6889 | Val samples: 32 (5+/27-)
+[train_classifier] Early stopping at epoch 14
+
+[train_classifier] Final evaluation on test set...
+Test Results:
+  Loss: 0.9104
+  Accuracy: 0.8438
+  F1 Score: 0.2857
+  AUC: 0.7857
+  Confusion Matrix:
+    True Negatives: 26
+    False Positives: 2
+    False Negatives: 3
+    True Positives: 1
+[train_classifier] Training completed. Metrics saved to results/classifier_metrics.json
+
+2025-11-07 06:40:12,650 - INFO - Step 2: Temperature calibration
+2025-11-07 06:40:12,650 - INFO - Running: python -m src.calibrate_temperature --config config.yaml
+2025-11-07 06:43:00,487 - INFO - Command succeeded: python -m src.calibrate_temperature --config config.yaml
+2025-11-07 06:43:00,488 - INFO - Output: [calibrate_temperature] Using device: cuda
+[calibrate_temperature] Loading model from checkpoints/classifier_best.pth
+[calibrate_temperature] Loading validation data...
+[data_loader] Loaded 214 sequences (37 positive, 177 negative)
+[data_loader] Created loaders - Train: 5 batches, Val: 1 batches, Test: 1 batches
+[calibrate_temperature] Starting temperature calibration...
+[calibrate_temperature] Calibrated temperature: 1.0269
+[calibrate_temperature] Evaluating calibration...
+[calibrate_temperature] Expected Calibration Error:
+  Original: 0.1137
+  Calibrated: 0.1141
+  Improvement: -0.0003
+[calibrate_temperature] Temperature parameter saved to results/temperature.json
+[calibrate_temperature] Calibrated model saved to checkpoints/classifier_best_calibrated.pth
+
+2025-11-07 06:43:00,488 - INFO - Step 3: RL training
+2025-11-07 06:43:00,488 - INFO - Running: python -m src.train_rl_ppo --config config.yaml --target TFRC
+2025-11-07 12:12:15,569 - INFO - Command succeeded: python -m src.train_rl_ppo --config config.yaml --target TFRC
+2025-11-07 12:12:15,571 - INFO - Step 4: Preparing candidates for evaluation
+2025-11-07 12:12:15,720 - INFO - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2025-11-07 12:12:15,720 - INFO - NumExpr defaulting to 8 threads.
+2025-11-07 12:12:15,952 - INFO - Created top 10 candidates from runs/ppo/top_sequences_epoch_final.csv
+2025-11-07 12:12:15,953 - INFO - Created topk candidates from runs/ppo/top_sequences_epoch_final.csv
+2025-11-07 12:12:15,953 - INFO - Step 5: GPU evaluation
+2025-11-07 12:12:15,953 - INFO - Running: python -m src.evaluate_candidates_gpu --config config.yaml --input runs/ppo/topk_candidates.csv --out results/eval_gpu.csv
+2025-11-07 12:12:18,800 - ERROR - Command failed: python -m src.evaluate_candidates_gpu --config config.yaml --input runs/ppo/topk_candidates.csv --out results/eval_gpu.csv
+2025-11-07 12:12:18,801 - ERROR - Error output: [evaluate_candidates_gpu] Using device: cuda
+[evaluate_candidates_gpu] Loading calibrated classifier...
+[evaluate_candidates_gpu] Loading model from checkpoints/classifier_best_calibrated.pth with temperature 1.0268861055374146
+Traceback (most recent call last):
+  File "/home/wuhaigang/anaconda3/envs/openmm-env/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/wuhaigang/anaconda3/envs/openmm-env/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/wuhaigang/WHG/NiuNiu1/src/evaluate_candidates_gpu.py", line 206, in <module>
+    main()
+  File "/home/wuhaigang/WHG/NiuNiu1/src/evaluate_candidates_gpu.py", line 160, in main
+    model, temperature = load_calibrated_classifier(config, device)
+  File "/home/wuhaigang/WHG/NiuNiu1/src/evaluate_candidates_gpu.py", line 51, in load_calibrated_classifier
+    model = PeptideClassifier.load(model_path, config, device)
+  File "/home/wuhaigang/WHG/NiuNiu1/src/models/classifier.py", line 175, in load
+    model = cls(config)
+  File "/home/wuhaigang/WHG/NiuNiu1/src/models/classifier.py", line 26, in __init__
+    self.embedding_dim = config["classifier"]["embedding"]
+KeyError: 'embedding'
+
+2025-11-07 12:12:18,801 - ERROR - GPU evaluation failed

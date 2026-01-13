@@ -1,0 +1,97 @@
+2025-11-06 05:14:08,046 - INFO - Starting BBB-penetrating peptide design pipeline
+2025-11-06 05:14:08,047 - INFO - Target receptor: TFRC
+2025-11-06 05:14:08,047 - INFO - Using device: cuda
+2025-11-06 05:14:08,047 - INFO - Step 1: Training classifier
+2025-11-06 05:14:08,047 - INFO - Running: python -m src.train_classifier --config config.yaml
+2025-11-06 05:14:21,159 - INFO - Command succeeded: python -m src.train_classifier --config config.yaml
+2025-11-06 05:14:21,159 - INFO - Output: [train_classifier] Using device: cuda
+[train_classifier] Loading data...
+[data_loader] Loaded 214 sequences (37 positive, 177 negative)
+[data_loader] Created loaders - Train: 5 batches, Val: 1 batches, Test: 1 batches
+[train_classifier] Creating model...
+[train_classifier] Model parameters: 2,436,035
+[train_classifier] Starting training...
+Epoch   1 | Train Loss: 0.6077 | Val Loss: 0.3239 | Acc: 0.9062 | F1: 0.0000 | AUC: 0.4943 | Val samples: 32 (3+/29-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   2 | Train Loss: 0.4883 | Val Loss: 0.3636 | Acc: 0.9062 | F1: 0.0000 | AUC: 0.6897 | Val samples: 32 (3+/29-)
+Epoch   3 | Train Loss: 0.3978 | Val Loss: 0.3136 | Acc: 0.9062 | F1: 0.4000 | AUC: 0.6667 | Val samples: 32 (3+/29-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   4 | Train Loss: 0.3236 | Val Loss: 0.3649 | Acc: 0.9062 | F1: 0.4000 | AUC: 0.7011 | Val samples: 32 (3+/29-)
+Epoch   5 | Train Loss: 0.2384 | Val Loss: 0.3665 | Acc: 0.9375 | F1: 0.6667 | AUC: 0.6437 | Val samples: 32 (3+/29-)
+Epoch   6 | Train Loss: 0.2608 | Val Loss: 0.3735 | Acc: 0.9375 | F1: 0.6667 | AUC: 0.7011 | Val samples: 32 (3+/29-)
+Epoch   7 | Train Loss: 0.1932 | Val Loss: 0.3954 | Acc: 0.9375 | F1: 0.6667 | AUC: 0.7471 | Val samples: 32 (3+/29-)
+Epoch   8 | Train Loss: 0.1692 | Val Loss: 0.3930 | Acc: 0.9375 | F1: 0.6667 | AUC: 0.7586 | Val samples: 32 (3+/29-)
+Epoch   9 | Train Loss: 0.1437 | Val Loss: 0.4494 | Acc: 0.9375 | F1: 0.6667 | AUC: 0.7126 | Val samples: 32 (3+/29-)
+Epoch  10 | Train Loss: 0.0970 | Val Loss: 0.4683 | Acc: 0.9375 | F1: 0.6667 | AUC: 0.7241 | Val samples: 32 (3+/29-)
+Epoch  11 | Train Loss: 0.0641 | Val Loss: 0.5966 | Acc: 0.9375 | F1: 0.6667 | AUC: 0.7241 | Val samples: 32 (3+/29-)
+Epoch  12 | Train Loss: 0.0534 | Val Loss: 0.6182 | Acc: 0.9375 | F1: 0.6667 | AUC: 0.7356 | Val samples: 32 (3+/29-)
+Epoch  13 | Train Loss: 0.0286 | Val Loss: 0.6654 | Acc: 0.9375 | F1: 0.6667 | AUC: 0.7471 | Val samples: 32 (3+/29-)
+[train_classifier] Early stopping at epoch 13
+
+[train_classifier] Final evaluation on test set...
+Test Results:
+  Loss: 0.1607
+  Accuracy: 0.9062
+  F1 Score: 0.7273
+  AUC: 0.9704
+  Confusion Matrix:
+    True Negatives: 25
+    False Positives: 2
+    False Negatives: 1
+    True Positives: 4
+[train_classifier] Training completed. Metrics saved to results/classifier_metrics.json
+
+2025-11-06 05:14:21,159 - INFO - Step 2: Temperature calibration
+2025-11-06 05:14:21,159 - INFO - Running: python -m src.calibrate_temperature --config config.yaml
+2025-11-06 05:18:21,217 - INFO - Command succeeded: python -m src.calibrate_temperature --config config.yaml
+2025-11-06 05:18:21,217 - INFO - Output: [calibrate_temperature] Using device: cuda
+[calibrate_temperature] Loading model from checkpoints/classifier_best.pth
+[calibrate_temperature] Loading validation data...
+[data_loader] Loaded 214 sequences (37 positive, 177 negative)
+[data_loader] Created loaders - Train: 5 batches, Val: 1 batches, Test: 1 batches
+[calibrate_temperature] Starting temperature calibration...
+[calibrate_temperature] Calibrated temperature: 0.7467
+[calibrate_temperature] Evaluating calibration...
+[calibrate_temperature] Expected Calibration Error:
+  Original: 0.1650
+  Calibrated: 0.1117
+  Improvement: 0.0533
+[calibrate_temperature] Temperature parameter saved to results/temperature.json
+[calibrate_temperature] Calibrated model saved to checkpoints/classifier_best_calibrated.pth
+
+2025-11-06 05:18:21,218 - INFO - Step 3: RL training
+2025-11-06 05:18:21,218 - INFO - Running: python -m src.train_rl_ppo --config config.yaml --target TFRC
+2025-11-06 05:18:26,659 - ERROR - Command failed: python -m src.train_rl_ppo --config config.yaml --target TFRC
+2025-11-06 05:18:26,659 - ERROR - Error output: [train_rl_ppo] Using device: cuda
+[train_rl_ppo] Loading classifier...
+[train_rl_ppo] Starting RL training...
+Traceback (most recent call last):
+  File "/home/wuhaigang/anaconda3/envs/openmm-env/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/wuhaigang/anaconda3/envs/openmm-env/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/wuhaigang/WHG/NiuNiu1/src/train_rl_ppo.py", line 469, in <module>
+    main()
+  File "/home/wuhaigang/WHG/NiuNiu1/src/train_rl_ppo.py", line 343, in main
+    next_state, reward, done, info = env.step(action.item())
+  File "/home/wuhaigang/WHG/NiuNiu1/src/train_rl_ppo.py", line 124, in step
+    reward = self._compute_final_reward(sequence)
+  File "/home/wuhaigang/WHG/NiuNiu1/src/train_rl_ppo.py", line 170, in _compute_final_reward
+    probs = self.classifier(encoded)
+  File "/home/wuhaigang/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/wuhaigang/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/wuhaigang/WHG/NiuNiu1/src/models/classifier.py", line 91, in forward
+    embedded = self.embedding(x)  # (batch_size, seq_len, embedding_dim)
+  File "/home/wuhaigang/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/wuhaigang/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/wuhaigang/.local/lib/python3.8/site-packages/torch/nn/modules/sparse.py", line 164, in forward
+    return F.embedding(
+  File "/home/wuhaigang/.local/lib/python3.8/site-packages/torch/nn/functional.py", line 2267, in embedding
+    return torch.embedding(weight, input, padding_idx, scale_grad_by_freq, sparse)
+RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu! (when checking argument for argument index in method wrapper_CUDA__index_select)
+
+2025-11-06 05:18:26,659 - ERROR - RL training failed

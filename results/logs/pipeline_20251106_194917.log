@@ -1,0 +1,64 @@
+2025-11-06 19:49:17,269 - INFO - Starting BBB-penetrating peptide design pipeline
+2025-11-06 19:49:17,269 - INFO - Target receptor: TFRC
+2025-11-06 19:49:17,269 - INFO - Using device: cuda
+2025-11-06 19:49:17,269 - INFO - Step 1: Training classifier
+2025-11-06 19:49:17,269 - INFO - Running: python -m src.train_classifier --config config.yaml
+2025-11-06 19:49:31,015 - INFO - Command succeeded: python -m src.train_classifier --config config.yaml
+2025-11-06 19:49:31,015 - INFO - Output: [train_classifier] Using device: cuda
+[train_classifier] Loading data...
+[data_loader] Loaded 214 sequences (37 positive, 177 negative)
+[data_loader] Created loaders - Train: 5 batches, Val: 1 batches, Test: 1 batches
+[train_classifier] Creating model...
+[classifier_factory] Model config:
+  - type: basic
+  - embedding_dim: 128
+  - hidden_dim: 256
+  - vocab_size: 21
+  - dropout: 0.3
+  - num_classes: 2
+  - type: basic
+[train_classifier] Model parameters: 2,436,035
+[train_classifier] Starting training...
+Epoch   1 | Train Loss: 0.5449 | Val Loss: 0.4758 | Acc: 0.8438 | F1: 0.0000 | AUC: 0.5333 | Val samples: 32 (5+/27-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   2 | Train Loss: 0.4635 | Val Loss: 0.3941 | Acc: 0.8438 | F1: 0.0000 | AUC: 0.7778 | Val samples: 32 (5+/27-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   3 | Train Loss: 0.4047 | Val Loss: 0.3591 | Acc: 0.8438 | F1: 0.0000 | AUC: 0.8519 | Val samples: 32 (5+/27-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   4 | Train Loss: 0.3466 | Val Loss: 0.3306 | Acc: 0.8438 | F1: 0.0000 | AUC: 0.8815 | Val samples: 32 (5+/27-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   5 | Train Loss: 0.2820 | Val Loss: 0.3193 | Acc: 0.8438 | F1: 0.4444 | AUC: 0.9037 | Val samples: 32 (5+/27-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   6 | Train Loss: 0.2419 | Val Loss: 0.4360 | Acc: 0.8750 | F1: 0.3333 | AUC: 0.8148 | Val samples: 32 (5+/27-)
+Epoch   7 | Train Loss: 0.1944 | Val Loss: 0.3078 | Acc: 0.8438 | F1: 0.2857 | AUC: 0.8148 | Val samples: 32 (5+/27-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   8 | Train Loss: 0.1549 | Val Loss: 0.3415 | Acc: 0.8750 | F1: 0.5000 | AUC: 0.8222 | Val samples: 32 (5+/27-)
+Epoch   9 | Train Loss: 0.0788 | Val Loss: 0.5934 | Acc: 0.8438 | F1: 0.2857 | AUC: 0.7852 | Val samples: 32 (5+/27-)
+Epoch  10 | Train Loss: 0.0495 | Val Loss: 0.8222 | Acc: 0.8750 | F1: 0.6000 | AUC: 0.7259 | Val samples: 32 (5+/27-)
+Epoch  11 | Train Loss: 0.0476 | Val Loss: 1.0625 | Acc: 0.8750 | F1: 0.6000 | AUC: 0.6889 | Val samples: 32 (5+/27-)
+Epoch  12 | Train Loss: 0.2065 | Val Loss: 0.8406 | Acc: 0.8750 | F1: 0.6000 | AUC: 0.8296 | Val samples: 32 (5+/27-)
+Epoch  13 | Train Loss: 0.0876 | Val Loss: 1.4557 | Acc: 0.8125 | F1: 0.2500 | AUC: 0.7556 | Val samples: 32 (5+/27-)
+Epoch  14 | Train Loss: 0.0519 | Val Loss: 0.6985 | Acc: 0.8438 | F1: 0.4444 | AUC: 0.7852 | Val samples: 32 (5+/27-)
+Epoch  15 | Train Loss: 0.0493 | Val Loss: 0.5983 | Acc: 0.8438 | F1: 0.4444 | AUC: 0.7630 | Val samples: 32 (5+/27-)
+Epoch  16 | Train Loss: 0.0261 | Val Loss: 0.7436 | Acc: 0.8438 | F1: 0.2857 | AUC: 0.7630 | Val samples: 32 (5+/27-)
+Epoch  17 | Train Loss: 0.0105 | Val Loss: 0.7904 | Acc: 0.8438 | F1: 0.2857 | AUC: 0.7704 | Val samples: 32 (5+/27-)
+[train_classifier] Early stopping at epoch 17
+
+[train_classifier] Final evaluation on test set...
+Test Results:
+  Loss: 0.9877
+  Accuracy: 0.8438
+  F1 Score: 0.6154
+  AUC: 0.8125
+  Confusion Matrix:
+    True Negatives: 23
+    False Positives: 1
+    False Negatives: 4
+    True Positives: 4
+[train_classifier] Training completed. Metrics saved to results/classifier_metrics.json
+
+2025-11-06 19:49:31,015 - INFO - Step 2: Temperature calibration
+2025-11-06 19:49:31,016 - INFO - Running: python -m src.calibrate_temperature --config config.yaml
+2025-11-06 19:49:34,231 - ERROR - Command failed: python -m src.calibrate_temperature --config config.yaml
+2025-11-06 19:49:34,231 - ERROR - Error output: 
+2025-11-06 19:49:34,232 - ERROR - Temperature calibration failed

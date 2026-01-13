@@ -1,0 +1,16 @@
+2025-11-06 19:34:00,043 - INFO - Starting BBB-penetrating peptide design pipeline
+2025-11-06 19:34:00,043 - INFO - Target receptor: TFRC
+2025-11-06 19:34:00,043 - INFO - Using device: cuda
+2025-11-06 19:34:00,043 - INFO - Step 1: Training classifier
+2025-11-06 19:34:00,043 - INFO - Running: python -m src.train_classifier --config config.yaml
+2025-11-06 19:34:02,847 - ERROR - Command failed: python -m src.train_classifier --config config.yaml
+2025-11-06 19:34:02,847 - ERROR - Error output: Traceback (most recent call last):
+  File "/home/wuhaigang/anaconda3/envs/openmm-env/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/wuhaigang/anaconda3/envs/openmm-env/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/wuhaigang/WHG/NiuNiu1/src/train_classifier.py", line 21, in <module>
+    from src.models.classifier_factory import build_classifier, log_model_config, count_parameters
+ImportError: cannot import name 'count_parameters' from 'src.models.classifier_factory' (/home/wuhaigang/WHG/NiuNiu1/src/models/classifier_factory.py)
+
+2025-11-06 19:34:02,848 - ERROR - Classifier training failed

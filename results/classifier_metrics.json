@@ -1,0 +1,13 @@
+{
+  "test_loss": 0.22074520587921143,
+  "test_accuracy": 0.9375,
+  "test_f1": 0.7499999999999999,
+  "test_auc": 0.9770114942528736,
+  "confusion_matrix": {
+    "tn": 27,
+    "fp": 2,
+    "fn": 0,
+    "tp": 3
+  },
+  "n_parameters": 2436035
+}

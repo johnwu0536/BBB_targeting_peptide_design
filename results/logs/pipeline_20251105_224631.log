@@ -1,0 +1,72 @@
+2025-11-05 22:46:31,360 - INFO - Starting BBB-penetrating peptide design pipeline
+2025-11-05 22:46:31,360 - INFO - Target receptor: TFRC
+2025-11-05 22:46:31,360 - INFO - Using device: cuda
+2025-11-05 22:46:31,360 - INFO - Step 1: Training classifier
+2025-11-05 22:46:31,360 - INFO - Running: python -m src.train_classifier --config config.yaml
+2025-11-05 22:46:40,499 - INFO - Command succeeded: python -m src.train_classifier --config config.yaml
+2025-11-05 22:46:40,499 - INFO - Output: [train_classifier] CUDA not available, falling back to CPU
+[train_classifier] Using device: cpu
+[train_classifier] Loading data...
+[data_loader] Loaded 214 sequences (37 positive, 177 negative)
+[data_loader] Created loaders - Train: 5 batches, Val: 1 batches, Test: 1 batches
+[train_classifier] Creating model...
+[train_classifier] Model parameters: 2,436,035
+[train_classifier] Starting training...
+Epoch   1 | Train Loss: 0.5229 | Val Loss: 0.1214 | Acc: 0.9688 | F1: 0.0000 | AUC: 0.7742 | Val samples: 32 (1+/31-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   2 | Train Loss: 0.5463 | Val Loss: 0.2961 | Acc: 0.9688 | F1: 0.0000 | AUC: 0.8387 | Val samples: 32 (1+/31-)
+Epoch   3 | Train Loss: 0.4508 | Val Loss: 0.3075 | Acc: 0.9688 | F1: 0.0000 | AUC: 0.8387 | Val samples: 32 (1+/31-)
+Epoch   4 | Train Loss: 0.3697 | Val Loss: 0.1313 | Acc: 0.9688 | F1: 0.0000 | AUC: 0.8065 | Val samples: 32 (1+/31-)
+Epoch   5 | Train Loss: 0.2789 | Val Loss: 0.1496 | Acc: 0.9375 | F1: 0.0000 | AUC: 0.9677 | Val samples: 32 (1+/31-)
+Epoch   6 | Train Loss: 0.2025 | Val Loss: 0.1100 | Acc: 0.9062 | F1: 0.4000 | AUC: 1.0000 | Val samples: 32 (1+/31-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   7 | Train Loss: 0.2086 | Val Loss: 0.1226 | Acc: 0.9062 | F1: 0.4000 | AUC: 1.0000 | Val samples: 32 (1+/31-)
+Epoch   8 | Train Loss: 0.1274 | Val Loss: 0.1691 | Acc: 0.9062 | F1: 0.4000 | AUC: 1.0000 | Val samples: 32 (1+/31-)
+Epoch   9 | Train Loss: 0.1067 | Val Loss: 0.1873 | Acc: 0.9062 | F1: 0.4000 | AUC: 1.0000 | Val samples: 32 (1+/31-)
+Epoch  10 | Train Loss: 0.0627 | Val Loss: 0.1153 | Acc: 0.9375 | F1: 0.5000 | AUC: 1.0000 | Val samples: 32 (1+/31-)
+Epoch  11 | Train Loss: 0.0720 | Val Loss: 0.3574 | Acc: 0.9062 | F1: 0.4000 | AUC: 0.9677 | Val samples: 32 (1+/31-)
+Epoch  12 | Train Loss: 0.0726 | Val Loss: 0.1744 | Acc: 0.9375 | F1: 0.5000 | AUC: 1.0000 | Val samples: 32 (1+/31-)
+Epoch  13 | Train Loss: 0.0878 | Val Loss: 0.2004 | Acc: 0.9062 | F1: 0.4000 | AUC: 1.0000 | Val samples: 32 (1+/31-)
+Epoch  14 | Train Loss: 0.1682 | Val Loss: 0.1783 | Acc: 0.9062 | F1: 0.4000 | AUC: 0.9677 | Val samples: 32 (1+/31-)
+Epoch  15 | Train Loss: 0.0693 | Val Loss: 0.1279 | Acc: 0.9062 | F1: 0.4000 | AUC: 0.9355 | Val samples: 32 (1+/31-)
+Epoch  16 | Train Loss: 0.0833 | Val Loss: 0.2262 | Acc: 0.8750 | F1: 0.3333 | AUC: 0.9355 | Val samples: 32 (1+/31-)
+[train_classifier] Early stopping at epoch 16
+
+[train_classifier] Final evaluation on test set...
+Test Results:
+  Loss: 1.0076
+  Accuracy: 0.7812
+  F1 Score: 0.5882
+  AUC: 0.7545
+  Confusion Matrix:
+    True Negatives: 20
+    False Positives: 2
+    False Negatives: 5
+    True Positives: 5
+[train_classifier] Training completed. Metrics saved to results\classifier_metrics.json
+
+2025-11-05 22:46:40,499 - INFO - Step 2: Temperature calibration
+2025-11-05 22:46:40,499 - INFO - Running: python -m src.calibrate_temperature --config config.yaml
+2025-11-05 22:46:45,584 - INFO - Command succeeded: python -m src.calibrate_temperature --config config.yaml
+2025-11-05 22:46:45,584 - INFO - Output: [calibrate_temperature] CUDA not available, falling back to CPU
+[calibrate_temperature] Using device: cpu
+[calibrate_temperature] Loading model from checkpoints/classifier_best.pth
+[calibrate_temperature] Loading validation data...
+[data_loader] Loaded 214 sequences (37 positive, 177 negative)
+[data_loader] Created loaders - Train: 5 batches, Val: 1 batches, Test: 1 batches
+[calibrate_temperature] Starting temperature calibration...
+[calibrate_temperature] Calibrated temperature: 1.4725
+[calibrate_temperature] Evaluating calibration...
+[calibrate_temperature] Expected Calibration Error:
+  Original: 0.1082
+  Calibrated: 0.0933
+  Improvement: 0.0150
+[calibrate_temperature] Temperature parameter saved to results/temperature.json
+[calibrate_temperature] Calibrated model saved to checkpoints/classifier_best_calibrated.pth
+
+2025-11-05 22:46:45,584 - INFO - Step 3: RL training
+2025-11-05 22:46:45,584 - INFO - Running: python -m src.train_rl_ppo --config config.yaml --target TFRC
+2025-11-05 22:46:45,638 - ERROR - Command failed: python -m src.train_rl_ppo --config config.yaml --target TFRC
+2025-11-05 22:46:45,638 - ERROR - Error output: D:\Python3.11\python.exe: No module named src.train_rl_ppo
+
+2025-11-05 22:46:45,638 - ERROR - RL training failed

@@ -1,0 +1,289 @@
+2025-11-16 08:41:33,652 - INFO - Starting BBB-penetrating peptide design pipeline
+2025-11-16 08:41:33,652 - INFO - Target receptor: LRP1
+2025-11-16 08:41:33,652 - INFO - Using device: cuda
+2025-11-16 08:41:33,652 - INFO - Step 1: Training classifier
+2025-11-16 08:41:33,652 - INFO - Running: python -m src.train_classifier --config config.yaml
+2025-11-16 08:41:41,468 - INFO - Command succeeded: python -m src.train_classifier --config config.yaml
+2025-11-16 08:41:41,469 - INFO - Output: [train_classifier] Using device: cuda
+[train_classifier] Loading data...
+[data_loader] Loaded 214 sequences (37 positive, 177 negative)
+[data_loader] Created loaders - Train: 5 batches, Val: 1 batches, Test: 1 batches
+[train_classifier] Creating model...
+[classifier_factory] Model config:
+  - type: basic
+  - embedding_dim: 128
+  - hidden_dim: 256
+  - vocab_size: 21
+  - dropout: 0.3
+  - num_classes: 2
+  - type: basic
+[train_classifier] Model parameters: 2,436,035
+[train_classifier] Starting training...
+Epoch   1 | Train Loss: 0.5576 | Val Loss: 0.5628 | Acc: 0.7812 | F1: 0.0000 | AUC: 0.6743 | Val samples: 32 (7+/25-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   2 | Train Loss: 0.5099 | Val Loss: 0.4947 | Acc: 0.7812 | F1: 0.2222 | AUC: 0.7086 | Val samples: 32 (7+/25-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   3 | Train Loss: 0.5051 | Val Loss: 0.5038 | Acc: 0.8125 | F1: 0.4000 | AUC: 0.7829 | Val samples: 32 (7+/25-)
+Epoch   4 | Train Loss: 0.3732 | Val Loss: 0.5052 | Acc: 0.7812 | F1: 0.0000 | AUC: 0.8057 | Val samples: 32 (7+/25-)
+Epoch   5 | Train Loss: 0.3245 | Val Loss: 0.4418 | Acc: 0.8125 | F1: 0.4000 | AUC: 0.8229 | Val samples: 32 (7+/25-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   6 | Train Loss: 0.2246 | Val Loss: 0.3685 | Acc: 0.8438 | F1: 0.5455 | AUC: 0.9029 | Val samples: 32 (7+/25-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch   7 | Train Loss: 0.2005 | Val Loss: 0.4435 | Acc: 0.8438 | F1: 0.5455 | AUC: 0.9029 | Val samples: 32 (7+/25-)
+Epoch   8 | Train Loss: 0.2124 | Val Loss: 0.4485 | Acc: 0.8438 | F1: 0.5455 | AUC: 0.9143 | Val samples: 32 (7+/25-)
+Epoch   9 | Train Loss: 0.2076 | Val Loss: 0.3956 | Acc: 0.8438 | F1: 0.5455 | AUC: 0.9314 | Val samples: 32 (7+/25-)
+Epoch  10 | Train Loss: 0.1490 | Val Loss: 0.4225 | Acc: 0.7812 | F1: 0.2222 | AUC: 0.9257 | Val samples: 32 (7+/25-)
+Epoch  11 | Train Loss: 0.1327 | Val Loss: 0.3500 | Acc: 0.8438 | F1: 0.5455 | AUC: 0.9257 | Val samples: 32 (7+/25-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch  12 | Train Loss: 0.1191 | Val Loss: 0.4269 | Acc: 0.8125 | F1: 0.4000 | AUC: 0.9543 | Val samples: 32 (7+/25-)
+Epoch  13 | Train Loss: 0.0726 | Val Loss: 0.4779 | Acc: 0.8125 | F1: 0.2500 | AUC: 0.9657 | Val samples: 32 (7+/25-)
+Epoch  14 | Train Loss: 0.0679 | Val Loss: 0.3547 | Acc: 0.8125 | F1: 0.4000 | AUC: 0.9714 | Val samples: 32 (7+/25-)
+Epoch  15 | Train Loss: 0.0508 | Val Loss: 0.3179 | Acc: 0.8125 | F1: 0.5000 | AUC: 0.9486 | Val samples: 32 (7+/25-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch  16 | Train Loss: 0.0236 | Val Loss: 0.9294 | Acc: 0.8125 | F1: 0.4000 | AUC: 0.9029 | Val samples: 32 (7+/25-)
+Epoch  17 | Train Loss: 0.0254 | Val Loss: 1.0457 | Acc: 0.8125 | F1: 0.4000 | AUC: 0.8514 | Val samples: 32 (7+/25-)
+Epoch  18 | Train Loss: 0.0577 | Val Loss: 1.0009 | Acc: 0.8125 | F1: 0.5000 | AUC: 0.8400 | Val samples: 32 (7+/25-)
+Epoch  19 | Train Loss: 0.0290 | Val Loss: 1.0477 | Acc: 0.8125 | F1: 0.4000 | AUC: 0.8343 | Val samples: 32 (7+/25-)
+Epoch  20 | Train Loss: 0.0328 | Val Loss: 0.9653 | Acc: 0.8750 | F1: 0.6667 | AUC: 0.8457 | Val samples: 32 (7+/25-)
+Epoch  21 | Train Loss: 0.0264 | Val Loss: 0.5350 | Acc: 0.8438 | F1: 0.5455 | AUC: 0.9543 | Val samples: 32 (7+/25-)
+Epoch  22 | Train Loss: 0.1309 | Val Loss: 0.9136 | Acc: 0.8438 | F1: 0.4444 | AUC: 0.9600 | Val samples: 32 (7+/25-)
+Epoch  23 | Train Loss: 0.0498 | Val Loss: 0.3020 | Acc: 0.8750 | F1: 0.6667 | AUC: 0.9714 | Val samples: 32 (7+/25-)
+[train_classifier] Saved best model to checkpoints/classifier_best.pth
+Epoch  24 | Train Loss: 0.0360 | Val Loss: 0.4299 | Acc: 0.8750 | F1: 0.6667 | AUC: 0.9486 | Val samples: 32 (7+/25-)
+Epoch  25 | Train Loss: 0.0503 | Val Loss: 0.5878 | Acc: 0.8438 | F1: 0.6154 | AUC: 0.9429 | Val samples: 32 (7+/25-)
+Epoch  26 | Train Loss: 0.0048 | Val Loss: 0.6292 | Acc: 0.8438 | F1: 0.6154 | AUC: 0.9429 | Val samples: 32 (7+/25-)
+Epoch  27 | Train Loss: 0.0120 | Val Loss: 0.6578 | Acc: 0.8750 | F1: 0.7143 | AUC: 0.9429 | Val samples: 32 (7+/25-)
+Epoch  28 | Train Loss: 0.0025 | Val Loss: 0.6940 | Acc: 0.8438 | F1: 0.6154 | AUC: 0.9143 | Val samples: 32 (7+/25-)
+Epoch  29 | Train Loss: 0.0043 | Val Loss: 0.7460 | Acc: 0.8438 | F1: 0.6154 | AUC: 0.9143 | Val samples: 32 (7+/25-)
+Epoch  30 | Train Loss: 0.0015 | Val Loss: 0.7701 | Acc: 0.8125 | F1: 0.5000 | AUC: 0.9200 | Val samples: 32 (7+/25-)
+Epoch  31 | Train Loss: 0.0006 | Val Loss: 0.7878 | Acc: 0.8125 | F1: 0.5000 | AUC: 0.9200 | Val samples: 32 (7+/25-)
+Epoch  32 | Train Loss: 0.0003 | Val Loss: 0.8056 | Acc: 0.8125 | F1: 0.5000 | AUC: 0.9200 | Val samples: 32 (7+/25-)
+Epoch  33 | Train Loss: 0.0004 | Val Loss: 0.8194 | Acc: 0.8125 | F1: 0.5000 | AUC: 0.9200 | Val samples: 32 (7+/25-)
+[train_classifier] Early stopping at epoch 33
+
+[train_classifier] Final evaluation on test set...
+Test Results:
+  Loss: 0.5997
+  Accuracy: 0.9688
+  F1 Score: 0.0000
+  AUC: 0.0645
+  Confusion Matrix:
+    True Negatives: 31
+    False Positives: 0
+    False Negatives: 1
+    True Positives: 0
+[train_classifier] Training completed. Metrics saved to results/classifier_metrics.json
+
+2025-11-16 08:41:41,469 - INFO - Step 2: Temperature calibration
+2025-11-16 08:41:41,469 - INFO - Running: python -m src.calibrate_temperature --config config.yaml
+2025-11-16 08:41:45,417 - INFO - Command succeeded: python -m src.calibrate_temperature --config config.yaml
+2025-11-16 08:41:45,418 - INFO - Output: [calibrate_temperature] Using device: cuda
+[calibrate_temperature] Loading model from checkpoints/classifier_best.pth
+[calibrate_temperature] Loading validation data...
+[data_loader] Loaded 214 sequences (37 positive, 177 negative)
+[data_loader] Created loaders - Train: 5 batches, Val: 1 batches, Test: 1 batches
+[calibrate_temperature] Starting temperature calibration...
+[calibrate_temperature] Calibrated temperature: 1.0000
+[calibrate_temperature] Evaluating calibration...
+[calibrate_temperature] Expected Calibration Error:
+  Original: 0.0718
+  Calibrated: 0.0718
+  Improvement: 0.0000
+[calibrate_temperature] Temperature parameter saved to results/temperature.json
+[calibrate_temperature] Calibrated model saved to checkpoints/classifier_best_calibrated.pth
+
+2025-11-16 08:41:45,418 - INFO - Step 3: RL training
+2025-11-16 08:41:45,418 - INFO - Running: python -m src.train_rl_ppo --config config.yaml --target LRP1
+2025-11-16 08:41:53,902 - ERROR - Command failed: python -m src.train_rl_ppo --config config.yaml --target LRP1
+2025-11-16 08:41:53,902 - ERROR - Error output: [train_rl_ppo] Using device: cuda
+[train_rl_ppo] RL config: lr=1e-05, gamma=0.99, eps=0.2, entropy_coef=0.05078, value_coef=0.5, max_grad_norm=0.5, ppo_epochs=4, episodes/epoch=64, sample_temp=1.2, decode_temp=0.8
+[train_rl_ppo] Loading classifier...
+[train_rl_ppo] Building basic classifier with params: {'embedding_dim': 128, 'hidden_dim': 256, 'vocab_size': 21, 'dropout': 0.3, 'num_classes': 2, 'type': 'basic'}
+[train_rl_ppo] Model moved to device: cuda
+[train_rl_ppo] Loaded classifier from checkpoints/classifier_best.pth
+[train_rl_ppo] Starting RL training...
+
+PPO Training:   0%|          | 0/1000 [00:00<?, ?epoch/s]
+
+Collecting trajectories:   0%|          | 0/64 [00:00<?, ?it/s][A
+
+Collecting trajectories:   0%|          | 0/64 [00:00<?, ?it/s, episode_len=20][A
+
+Collecting trajectories:   2%|▏         | 1/64 [00:00<00:19,  3.17it/s, episode_len=20][A
+
+Collecting trajectories:   2%|▏         | 1/64 [00:00<00:19,  3.17it/s, episode_len=20][A
+
+Collecting trajectories:   2%|▏         | 1/64 [00:00<00:19,  3.17it/s, episode_len=6] [A
+
+Collecting trajectories:   2%|▏         | 1/64 [00:00<00:19,  3.17it/s, episode_len=20][A
+
+Collecting trajectories:   2%|▏         | 1/64 [00:00<00:19,  3.17it/s, episode_len=20][A
+
+Collecting trajectories:   8%|▊         | 5/64 [00:00<00:04, 13.13it/s, episode_len=20][A
+
+Collecting trajectories:   8%|▊         | 5/64 [00:00<00:04, 13.13it/s, episode_len=4] [A
+
+Collecting trajectories:   8%|▊         | 5/64 [00:00<00:04, 13.13it/s, episode_len=2][A
+
+Collecting trajectories:   8%|▊         | 5/64 [00:00<00:04, 13.13it/s, episode_len=5][A
+
+Collecting trajectories:   8%|▊         | 5/64 [00:00<00:04, 13.13it/s, episode_len=12][A
+
+Collecting trajectories:   8%|▊         | 5/64 [00:00<00:04, 13.13it/s, episode_len=20][A
+
+Collecting trajectories:   8%|▊         | 5/64 [00:00<00:04, 13.13it/s, episode_len=20][A
+
+Collecting trajectories:  17%|█▋        | 11/64 [00:00<00:02, 24.48it/s, episode_len=20][A
+
+Collecting trajectories:  17%|█▋        | 11/64 [00:00<00:02, 24.48it/s, episode_len=1] [A
+
+Collecting trajectories:  17%|█▋        | 11/64 [00:00<00:02, 24.48it/s, episode_len=20][A
+
+Collecting trajectories:  17%|█▋        | 11/64 [00:00<00:02, 24.48it/s, episode_len=20][A
+
+Collecting trajectories:  17%|█▋        | 11/64 [00:00<00:02, 24.48it/s, episode_len=1] [A
+
+Collecting trajectories:  17%|█▋        | 11/64 [00:00<00:02, 24.48it/s, episode_len=19][A
+
+Collecting trajectories:  25%|██▌       | 16/64 [00:00<00:01, 29.37it/s, episode_len=19][A
+
+Collecting trajectories:  25%|██▌       | 16/64 [00:00<00:01, 29.37it/s, episode_len=6] [A
+
+Collecting trajectories:  25%|██▌       | 16/64 [00:00<00:01, 29.37it/s, episode_len=11][A
+
+Collecting trajectories:  25%|██▌       | 16/64 [00:00<00:01, 29.37it/s, episode_len=20][A
+
+Collecting trajectories:  25%|██▌       | 16/64 [00:00<00:01, 29.37it/s, episode_len=20][A
+
+Collecting trajectories:  31%|███▏      | 20/64 [00:00<00:01, 30.76it/s, episode_len=20][A
+
+Collecting trajectories:  31%|███▏      | 20/64 [00:00<00:01, 30.76it/s, episode_len=13][A
+
+Collecting trajectories:  31%|███▏      | 20/64 [00:00<00:01, 30.76it/s, episode_len=7] [A
+
+Collecting trajectories:  31%|███▏      | 20/64 [00:00<00:01, 30.76it/s, episode_len=20][A
+
+Collecting trajectories:  31%|███▏      | 20/64 [00:00<00:01, 30.76it/s, episode_len=20][A
+
+Collecting trajectories:  38%|███▊      | 24/64 [00:00<00:01, 31.33it/s, episode_len=20][A
+
+Collecting trajectories:  38%|███▊      | 24/64 [00:00<00:01, 31.33it/s, episode_len=20][A
+
+Collecting trajectories:  38%|███▊      | 24/64 [00:01<00:01, 31.33it/s, episode_len=20][A
+
+Collecting trajectories:  38%|███▊      | 24/64 [00:01<00:01, 31.33it/s, episode_len=20][A
+
+Collecting trajectories:  38%|███▊      | 24/64 [00:01<00:01, 31.33it/s, episode_len=5] [A
+
+Collecting trajectories:  44%|████▍     | 28/64 [00:01<00:01, 30.73it/s, episode_len=5][A
+
+Collecting trajectories:  44%|████▍     | 28/64 [00:01<00:01, 30.73it/s, episode_len=20][A
+
+Collecting trajectories:  44%|████▍     | 28/64 [00:01<00:01, 30.73it/s, episode_len=14][A
+
+Collecting trajectories:  44%|████▍     | 28/64 [00:01<00:01, 30.73it/s, episode_len=20][A
+
+Collecting trajectories:  44%|████▍     | 28/64 [00:01<00:01, 30.73it/s, episode_len=20][A
+
+Collecting trajectories:  50%|█████     | 32/64 [00:01<00:01, 29.15it/s, episode_len=20][A
+
+Collecting trajectories:  50%|█████     | 32/64 [00:01<00:01, 29.15it/s, episode_len=18][A
+
+Collecting trajectories:  50%|█████     | 32/64 [00:01<00:01, 29.15it/s, episode_len=7] [A
+
+Collecting trajectories:  50%|█████     | 32/64 [00:01<00:01, 29.15it/s, episode_len=10][A
+
+Collecting trajectories:  50%|█████     | 32/64 [00:01<00:01, 29.15it/s, episode_len=20][A
+
+Collecting trajectories:  56%|█████▋    | 36/64 [00:01<00:00, 30.86it/s, episode_len=20][A
+
+Collecting trajectories:  56%|█████▋    | 36/64 [00:01<00:00, 30.86it/s, episode_len=4] [A
+
+Collecting trajectories:  56%|█████▋    | 36/64 [00:01<00:00, 30.86it/s, episode_len=10][A
+
+Collecting trajectories:  56%|█████▋    | 36/64 [00:01<00:00, 30.86it/s, episode_len=20][A
+
+Collecting trajectories:  56%|█████▋    | 36/64 [00:01<00:00, 30.86it/s, episode_len=20][A
+
+Collecting trajectories:  62%|██████▎   | 40/64 [00:01<00:00, 32.29it/s, episode_len=20][A
+
+Collecting trajectories:  62%|██████▎   | 40/64 [00:01<00:00, 32.29it/s, episode_len=20][A
+
+Collecting trajectories:  62%|██████▎   | 40/64 [00:01<00:00, 32.29it/s, episode_len=13][A
+
+Collecting trajectories:  62%|██████▎   | 40/64 [00:01<00:00, 32.29it/s, episode_len=3] [A
+
+Collecting trajectories:  62%|██████▎   | 40/64 [00:01<00:00, 32.29it/s, episode_len=20][A
+
+Collecting trajectories:  69%|██████▉   | 44/64 [00:01<00:00, 33.08it/s, episode_len=20][A
+
+Collecting trajectories:  69%|██████▉   | 44/64 [00:01<00:00, 33.08it/s, episode_len=20][A
+
+Collecting trajectories:  69%|██████▉   | 44/64 [00:01<00:00, 33.08it/s, episode_len=1] [A
+
+Collecting trajectories:  69%|██████▉   | 44/64 [00:01<00:00, 33.08it/s, episode_len=18][A
+
+Collecting trajectories:  69%|██████▉   | 44/64 [00:01<00:00, 33.08it/s, episode_len=6] [A
+
+Collecting trajectories:  69%|██████▉   | 44/64 [00:01<00:00, 33.08it/s, episode_len=16][A
+
+Collecting trajectories:  77%|███████▋  | 49/64 [00:01<00:00, 35.12it/s, episode_len=16][A
+
+Collecting trajectories:  77%|███████▋  | 49/64 [00:01<00:00, 35.12it/s, episode_len=10][A
+
+Collecting trajectories:  77%|███████▋  | 49/64 [00:01<00:00, 35.12it/s, episode_len=20][A
+
+Collecting trajectories:  77%|███████▋  | 49/64 [00:01<00:00, 35.12it/s, episode_len=20][A
+
+Collecting trajectories:  77%|███████▋  | 49/64 [00:01<00:00, 35.12it/s, episode_len=7] [A
+
+Collecting trajectories:  83%|████████▎ | 53/64 [00:01<00:00, 34.74it/s, episode_len=7][A
+
+Collecting trajectories:  83%|████████▎ | 53/64 [00:01<00:00, 34.74it/s, episode_len=11][A
+
+Collecting trajectories:  83%|████████▎ | 53/64 [00:01<00:00, 34.74it/s, episode_len=20][A
+
+Collecting trajectories:  83%|████████▎ | 53/64 [00:01<00:00, 34.74it/s, episode_len=20][A
+
+Collecting trajectories:  83%|████████▎ | 53/64 [00:01<00:00, 34.74it/s, episode_len=2] [A
+
+Collecting trajectories:  89%|████████▉ | 57/64 [00:01<00:00, 35.33it/s, episode_len=2][A
+
+Collecting trajectories:  89%|████████▉ | 57/64 [00:01<00:00, 35.33it/s, episode_len=16][A
+
+Collecting trajectories:  89%|████████▉ | 57/64 [00:01<00:00, 35.33it/s, episode_len=9] [A
+
+Collecting trajectories:  89%|████████▉ | 57/64 [00:02<00:00, 35.33it/s, episode_len=17][A
+
+Collecting trajectories:  89%|████████▉ | 57/64 [00:02<00:00, 35.33it/s, episode_len=20][A
+
+Collecting trajectories:  95%|█████████▌| 61/64 [00:02<00:00, 34.04it/s, episode_len=20][A
+
+Collecting trajectories:  95%|█████████▌| 61/64 [00:02<00:00, 34.04it/s, episode_len=3] [A
+
+Collecting trajectories:  95%|█████████▌| 61/64 [00:02<00:00, 34.04it/s, episode_len=5][A
+
+Collecting trajectories:  95%|█████████▌| 61/64 [00:02<00:00, 34.04it/s, episode_len=6][A
+
+                                                                                       [A
+PPO Training:   0%|          | 0/1000 [00:04<?, ?epoch/s]
+Traceback (most recent call last):
+  File "/home/wuhaigang/anaconda3/envs/openmm-env/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/wuhaigang/anaconda3/envs/openmm-env/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/wuhaigang/WHG/NiuNiu1/src/train_rl_ppo.py", line 678, in <module>
+    main()
+  File "/home/wuhaigang/WHG/NiuNiu1/src/train_rl_ppo.py", line 563, in main
+    last_loss_info = ppo.update(states, actions, old_log_probs, returns, advantages)
+  File "/home/wuhaigang/WHG/NiuNiu1/src/train_rl_ppo.py", line 308, in update
+    loss.backward()
+  File "/home/wuhaigang/.local/lib/python3.8/site-packages/torch/_tensor.py", line 521, in backward
+    torch.autograd.backward(
+  File "/home/wuhaigang/.local/lib/python3.8/site-packages/torch/autograd/__init__.py", line 289, in backward
+    _engine_run_backward(
+  File "/home/wuhaigang/.local/lib/python3.8/site-packages/torch/autograd/graph.py", line 768, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+RuntimeError: Trying to backward through the graph a second time (or directly access saved tensors after they have already been freed). Saved intermediate values of the graph are freed when you call .backward() or autograd.grad(). Specify retain_graph=True if you need to backward through the graph a second time or if you need to access saved tensors after calling backward.
+
+2025-11-16 08:41:53,903 - ERROR - RL training failed

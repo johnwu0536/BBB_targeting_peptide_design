@@ -1,0 +1,35 @@
+2025-11-05 22:35:38,493 - INFO - Starting BBB-penetrating peptide design pipeline
+2025-11-05 22:35:38,493 - INFO - Target receptor: LRP1
+2025-11-05 22:35:38,493 - INFO - Using device: cuda
+2025-11-05 22:35:38,493 - INFO - Step 1: Training classifier
+2025-11-05 22:35:38,493 - INFO - Running: python -m src.train_classifier --config config.yaml
+2025-11-05 22:35:41,174 - ERROR - Command failed: python -m src.train_classifier --config config.yaml
+2025-11-05 22:35:41,174 - ERROR - Error output: Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\20251104\src\train_classifier.py", line 259, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\20251104\src\train_classifier.py", line 146, in main
+    sequences, labels = load_peptide_data(config, args.target)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\20251104\src\utils\data_loader.py", line 85, in load_peptide_data
+    merged_df = binding_df.merge(receptor_df, on="Peptide_ID", how="left")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python3.11\Lib\site-packages\pandas\core\frame.py", line 9843, in merge
+    return merge(
+           ^^^^^^
+  File "D:\Python3.11\Lib\site-packages\pandas\core\reshape\merge.py", line 148, in merge
+    op = _MergeOperation(
+         ^^^^^^^^^^^^^^^^
+  File "D:\Python3.11\Lib\site-packages\pandas\core\reshape\merge.py", line 737, in __init__
+    ) = self._get_merge_keys()
+        ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python3.11\Lib\site-packages\pandas\core\reshape\merge.py", line 1203, in _get_merge_keys
+    right_keys.append(right._get_label_or_level_values(rk))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python3.11\Lib\site-packages\pandas\core\generic.py", line 1778, in _get_label_or_level_values
+    raise KeyError(key)
+KeyError: 'Peptide_ID'
+
+2025-11-05 22:35:41,174 - ERROR - Classifier training failed
