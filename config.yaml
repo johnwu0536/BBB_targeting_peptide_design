@@ -1,0 +1,99 @@
+paths:
+  data_dir: data
+  ckpt_dir: checkpoints
+  results_dir: results
+  runs_dir: runs
+  classifier_ckpt: checkpoints/classifier_best.pth
+  temperature_json: results/temperature.json
+
+classifier:
+  seed: 42
+  embedding: 128
+  hidden: 256
+  dropout: 0.3
+  batch_size: 32
+  epochs: 100
+  lr: 0.001
+  val_ratio: 0.15
+  test_ratio: 0.15
+  min_cluster_identity: 0.8
+  class_weights: [1.0, 1.0]
+  calibrated_checkpoint: "checkpoints/classifier_best_calibrated.pth"
+  temperature_file: "results/temperature.json"
+  thresholds:
+    high: 0.8
+    medium: 0.5
+    low: 0.3
+  model:
+    type: "basic"       # basic, enhanced, multimodal
+    embedding_dim: 128
+    hidden_dim: 256
+    vocab_size: 21
+    dropout: 0.3
+    num_classes: 2
+
+rl:
+  hidden_size: 256
+  learning_rate: 0.00001
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_epsilon: 0.2
+  entropy_coef: 0.05078
+  value_coef: 0.5
+  max_grad_norm: 0.5
+  ppo_epochs: 4
+  batch_size: 64          # 每个 epoch 采样的 episode 数
+  horizon: 2048           # 当前脚本中暂未显式使用，可保留
+  sample_temperature: 1.2 # 训练时的采样温度（>1 更随机）
+  decode_temperature: 0.8 # 生成 top 序列时的采样温度（<1 更贪心）
+
+task:
+  min_len: 8
+  max_len: 20
+
+physchem_constraints:
+  max_cysteines: 2
+  max_repeats: 3
+  min_charge: -1
+  max_charge: 4
+  min_hydropathy: -1.5
+  max_hydropathy: 1.5
+  min_entropy: 3.76          # 序列复杂度下限
+  max_run_penalty: 5         # 最长 run 超出 max_repeats 时的惩罚系数
+  entropy_penalty_coef: 7.435 # 熵不足时的惩罚强度
+
+reward_weights:
+  target_prob: 0.468
+  specificity: 0.25
+  physchem: 0.4328
+  motif: 0.1
+  safety: 0.05
+
+device: cuda
+
+# Active learning settings（当前 RL 训练脚本没有使用，可保留给其他模块）
+active_selection:
+  ucb:
+    enabled: true
+    kappa: 1.0
+    diversity_weight: 0.4659
+    top_k: 10
+
+# Target receptor configuration
+target:
+  receptor: "TFRC"
+
+# Enhanced RL settings with receptor awareness
+# 当前 train_rl_ppo.py 没有显式使用这一块，如果之后要做 receptor-aware reward，可以在这里接上
+rl_enhanced:
+  kl_penalty:
+    enabled: true
+    beta: 0.04325
+    target_kl: 0.01
+    adaptive: true
+  confidence_thresholds:
+    high: 0.8
+    medium: 0.5
+    low: 0.3
+  receptor_weight: 0.2
+

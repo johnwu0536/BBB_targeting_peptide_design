@@ -1,0 +1,87 @@
+paths:
+  data_dir: data
+  ckpt_dir: checkpoints
+  results_dir: results
+  runs_dir: runs
+  classifier_ckpt: checkpoints/classifier_best.pth
+  temperature_json: results/temperature.json
+classifier:
+  seed: 42
+  embedding: 128
+  hidden: 256
+  dropout: 0.3
+  batch_size: 32
+  epochs: 100
+  lr: 0.001
+  val_ratio: 0.15
+  test_ratio: 0.15
+  min_cluster_identity: 0.8
+  class_weights:
+  - 1.0
+  - 1.0
+  calibrated_checkpoint: checkpoints/classifier_best_calibrated.pth
+  temperature_file: results/temperature.json
+  thresholds:
+    high: 0.8
+    medium: 0.5
+    low: 0.3
+  model:
+    type: basic
+    embedding_dim: 128
+    hidden_dim: 256
+    vocab_size: 21
+    dropout: 0.3
+    num_classes: 2
+rl:
+  hidden_size: 256
+  learning_rate: 1.0e-05
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_epsilon: 0.2
+  entropy_coef: 0.06364
+  value_coef: 0.5
+  max_grad_norm: 0.5
+  ppo_epochs: 4
+  batch_size: 64
+  horizon: 2048
+  sample_temperature: 1.2
+  decode_temperature: 0.8
+task:
+  min_len: 8
+  max_len: 20
+physchem_constraints:
+  max_cysteines: 2
+  max_repeats: 4
+  min_charge: -1
+  max_charge: 4
+  min_hydropathy: -1.5
+  max_hydropathy: 1.5
+  min_entropy: 2.476
+  max_run_penalty: 5
+  entropy_penalty_coef: 7.438
+reward_weights:
+  target_prob: 0.459
+  specificity: 0.25
+  physchem: 0.4504
+  motif: 0.1
+  safety: 0.05
+device: cuda
+active_selection:
+  ucb:
+    enabled: true
+    kappa: 1.0
+    diversity_weight: 0.3352
+    top_k: 10
+target:
+  receptor: TFRC
+rl_enhanced:
+  kl_penalty:
+    enabled: true
+    beta: 0.02144
+    target_kl: 0.01
+    adaptive: true
+  confidence_thresholds:
+    high: 0.8
+    medium: 0.5
+    low: 0.3
+  receptor_weight: 0.2
